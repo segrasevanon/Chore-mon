@@ -1,0 +1,13 @@
+JUnit version 4.13.2
+......E...............
+Time: 0.359
+There was 1 failure:
+1) oneTimeQuestStaysFinished(com.choreemon.app.data.GameRulesTest)
+java.lang.IllegalArgumentException: This quest has already been completed or isn't assigned to you.
+	at com.choreemon.app.data.GameRules.complete(GameModels.kt:108)
+	at com.choreemon.app.data.GameRules.complete$default(GameModels.kt:105)
+	at com.choreemon.app.data.GameRulesTest.oneTimeQuestStaysFinished(GameRulesTest.kt:36)
+
+FAILURES!!!
+Tests run: 21,  Failures: 1
+
