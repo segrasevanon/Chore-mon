@@ -96,3 +96,7 @@ This is a complete **offline shared-device implementation**. Profiles are local 
 The parent PIN is a local management gate, not a substitute for device security or separate online identities. No credentials or external services are needed to run the app.
 
 Artwork was created using the built-in image generation tool, guided by the supplied references. Nunito is bundled under the SIL Open Font License; see `docs/Nunito-OFL.txt`. UI icons come from AndroidX Material Icons.
+
+## Download
+
+[Download the Choreémon APK](Choreemon.apk)
