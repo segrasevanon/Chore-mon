@@ -24,6 +24,8 @@ The installable debug APK is generated at `app/build/outputs/apk/debug/app-debug
 
 Packaged handoff files are in `output/`: `Choreemon-debug.apk`, `Choreemon-source.zip`, and `SHA256SUMS.txt`. The source archive excludes local SDK paths, caches, and generated build products. See `verification/QA.md` for the build, test, and device verification results.
 
+[Download the latest packaged debug APK](Chore%C3%A9mon/output/Choreemon-debug.apk)
+
 ## A quick presentation
 
 1. Tap **Start playing** to explore the Chen family demo. Mia starts with 120 points, a five-day streak, Sudsy, and Sockmite.
