@@ -7,3 +7,4 @@ local.properties
 captures/
 output/
 verification/private/
+.superpowers/
