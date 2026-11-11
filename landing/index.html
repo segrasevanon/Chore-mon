@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choreémon — Level Up Your Daily Quests (Official APK)</title>
+  <meta name="description" content="Choreémon is a native Android RPG that turns everyday household chores into creature-raising adventures. Complete quests, hatch eggs, and evolve buddies!">
+  <link rel="icon" type="image/png" href="assets/creatures/egg.png">
+  
+  <!-- Google Fonts: Nunito & Fredoka for gaming pop vibe -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Canvas Confetti Overlay -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="brand-logo">
+        <img src="assets/creatures/egg.png" alt="Choreemon Egg" class="brand-icon">
+        <span class="brand-name">Choreémon</span>
+        <span class="brand-pill">v1.0</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#hatchery" class="nav-link">🥚 Hatchery</a>
+        <a href="#creatures" class="nav-link">🐾 Buddies</a>
+        <a href="#features" class="nav-link">⭐ Features</a>
+        <a href="#gallery" class="nav-link">📸 Gallery</a>
+        <a href="#install" class="nav-link">📖 How to Install</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="nav-toggle-sound" class="btn-icon" aria-label="Toggle Retro Sound Effects" title="Sound Effects: ON">
+          <span class="sound-icon">🔊</span>
+          <span class="sound-label">Sound ON</span>
+        </button>
+        <a id="download-btn-nav" href="assets/Choreemon.apk" download="Choreemon.apk" class="btn-nav-download">
+          Download APK
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="hero-container">
+        <div class="hero-content">
+          <div class="hero-pill-badge">
+            <span class="sparkle">✨</span> Native Android Game • Offline &amp; Free
+          </div>
+          
+          <h1 class="hero-title">
+            Turn Daily Chores Into <span class="highlight-blue">Creature Adventures!</span>
+          </h1>
+          
+          <p class="hero-subtitle">
+            Wash dishes to power up <strong>Sudsy</strong>, fold laundry to awaken <strong>Socktitan</strong>, and sweep floors to bond with <strong>Dustbunny</strong>. Earn points, hatch rare eggs, and become a household legend!
+          </p>
+
+          <!-- Download Action Card -->
+          <div class="download-card">
+            <div class="download-card-main">
+              <a id="download-btn-hero" href="assets/Choreemon.apk" download="Choreemon.apk" class="btn-primary-download">
+                <span class="btn-download-icon">📥</span>
+                <span class="btn-download-text">
+                  <strong>Download Choreémon APK</strong>
+                  <small>Release v1.0 • ~51.5 MB • Direct Link</small>
+                </span>
+                <span class="btn-badge-free">FREE</span>
+              </a>
+
+              <div class="specs-grid">
+                <div class="spec-pill">
+                  <span class="spec-icon">🤖</span>
+                  <span>Android 8.0+</span>
+                </div>
+                <div class="spec-pill">
+                  <span class="spec-icon">⚡</span>
+                  <span>100% Offline</span>
+                </div>
+                <div class="spec-pill">
+                  <span class="spec-icon">🛡️</span>
+                  <span>Zero Ads &amp; IAPs</span>
+                </div>
+                <div class="spec-pill">
+                  <span class="spec-icon">🔒</span>
+                  <span>Parent PIN Safe</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SHA-256 Checksum Accordion -->
+            <div class="sha-box">
+              <button id="sha-toggle" class="sha-toggle-btn" type="button">
+                <span>🔐 SHA-256 Verification Hash</span>
+                <span class="arrow-indicator">▼</span>
+              </button>
+              <div id="sha-content" class="sha-content hidden">
+                <code>677d4060a931d3e49a7be3d1640ca2921354de8214dc151a57e3a08d1b65815e</code>
+                <button id="btn-copy-sha" class="btn-copy" type="button" title="Copy Checksum">Copy</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- QR Code Section -->
+          <div class="qr-container-card">
+            <div class="qr-box">
+              <canvas id="qr-canvas" width="140" height="140" aria-label="QR Code to Download Choreemon APK"></canvas>
+            </div>
+            <div class="qr-info">
+              <h3>📱 Install on Phone Instantly</h3>
+              <p>Scan with your Android camera or QR reader to download the APK straight to your phone!</p>
+              <span class="qr-tip">💡 No PC needed • One tap to install</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Graphic Showcase -->
+        <div class="hero-visual">
+          <div class="mascot-stage">
+            <div class="room-backdrop" style="background-image: url('assets/creatures/room.png');"></div>
+            
+            <div class="floating-badge badge-streak">
+              <span class="badge-icon">🔥</span>
+              <div>
+                <strong>5-Day Streak!</strong>
+                <small>Chen Family</small>
+              </div>
+            </div>
+
+            <div class="floating-badge badge-xp">
+              <span class="badge-icon">⭐</span>
+              <div>
+                <strong>+12 XP Gained!</strong>
+                <small>Dishwashing Quest</small>
+              </div>
+            </div>
+
+            <div class="floating-badge badge-mood">
+              <span class="badge-icon">💖</span>
+              <div>
+                <strong>Sudsy is Happy!</strong>
+                <small>1.2x XP Multiplier</small>
+              </div>
+            </div>
+
+            <!-- Bobbing Creatures -->
+            <div class="hero-creature hero-creature-primary">
+              <img src="assets/creatures/sudsy.png" alt="Sudsy the Water Buddy" class="creature-bob">
+              <span class="creature-nametag element-water">Sudsy (Lv. 10)</span>
+            </div>
+
+            <div class="hero-creature hero-creature-secondary">
+              <img src="assets/creatures/sockmite.png" alt="Sockmite the Laundry Buddy" class="creature-wiggle">
+              <span class="creature-nametag element-earth">Sockmite</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Egg Hatchery Preview -->
+    <section id="hatchery" class="section-container">
+      <div class="section-header">
+        <span class="section-tag element-air">🥚 Tap &amp; Play</span>
+        <h2 class="section-title">Interactive Hatchery Mini-Game</h2>
+        <p class="section-subtitle">Experience the in-game magic! Give the egg 3 gentle taps to hatch your first buddy.</p>
+      </div>
+
+      <div class="hatchery-card" id="egg-widget">
+        <div class="hatchery-stage">
+          <div id="egg-tap-zone" class="egg-tap-zone" role="button" tabindex="0" aria-label="Tap to crack the egg">
+            <div class="egg-glow"></div>
+            <img id="egg-img" src="assets/creatures/egg.png" alt="Mystery Chore-mon Egg" class="egg-interactive">
+            <div class="egg-crack-overlay" id="crack-overlay"></div>
+          </div>
+
+          <div class="tap-counter-box">
+            <span id="tap-instruction" class="tap-instruction">👉 Tap the egg to crack it!</span>
+            <div class="tap-dots">
+              <span class="dot" id="dot-1"></span>
+              <span class="dot" id="dot-2"></span>
+              <span class="dot" id="dot-3"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result Card (Shown after 3 taps) -->
+        <div id="egg-result" class="egg-result hidden">
+          <div class="result-badge">🎉 Congratulations! You Hatched:</div>
+          <div class="result-creature-card" id="result-card">
+            <img id="result-img" src="assets/creatures/sudsy.png" alt="Hatched Creature" class="result-creature-img">
+            <div class="result-details">
+              <span id="result-element" class="creature-type-pill element-water">💧 Water Element</span>
+              <h3 id="result-name">Sudsy</h3>
+              <p id="result-family">Dishes Family • Starter Form</p>
+              <p id="result-lore" class="result-lore">"Loves warm soapy suds and shiny plates. The cleaner the sink, the higher he bounces!"</p>
+              <div class="result-stats">
+                <span class="stat-pill">Starter XP: 0/40</span>
+                <span class="stat-pill">Mood: Joyful 💖</span>
+                <span class="stat-pill">Evolves at Lv. 10</span>
+              </div>
+            </div>
+          </div>
+          <button id="btn-hatch-again" class="btn-secondary" type="button">🔄 Hatch Another Egg</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Creature Showcase & Evolutions -->
+    <section id="creatures" class="section-container">
+      <div class="section-header">
+        <span class="section-tag element-earth">🐾 The 4 Families</span>
+        <h2 class="section-title">Meet Your Chore Companions</h2>
+        <p class="section-subtitle">Every chore has a champion. Complete quests consistently to evolve them from cute starters into powerhouse guardians!</p>
+      </div>
+
+      <!-- Family Category Tabs -->
+      <div class="filter-tabs" role="tablist">
+        <button class="filter-tab active" data-filter="all">🌟 All Buddies</button>
+        <button class="filter-tab" data-filter="water">💧 Dishes (Water)</button>
+        <button class="filter-tab" data-filter="earth">🧦 Laundry (Earth)</button>
+        <button class="filter-tab" data-filter="air">🐰 Vacuuming (Air)</button>
+        <button class="filter-tab" data-filter="poison">🦨 Trash &amp; Bins (Poison)</button>
+      </div>
+
+      <!-- Creatures Grid -->
+      <div id="creatures-grid" class="creatures-grid">
+        <!-- Sudsy Family -->
+        <div class="creature-card" data-element="water">
+          <div class="card-element-stripe stripe-water"></div>
+          <div class="creature-stage-badge">Starter</div>
+          <img src="assets/creatures/sudsy.png" alt="Sudsy" class="creature-thumbnail" loading="lazy">
+          <h3 class="creature-name">Sudsy</h3>
+          <span class="creature-type-pill element-water">💧 Water • Dishes</span>
+          <p class="creature-desc">Born from bubbly sink water. Gleefully scrubs pots and splashes in clean rinsing bowls.</p>
+          <div class="evolution-path">
+            <span>Stage 1</span> ➔ <span>Bubblescale (10)</span> ➔ <span>Dishdrake (25)</span>
+          </div>
+        </div>
+
+        <div class="creature-card" data-element="water">
+          <div class="card-element-stripe stripe-water"></div>
+          <div class="creature-stage-badge badge-evolved">Level 10</div>
+          <img src="assets/creatures/bubblescale.png" alt="Bubblescale" class="creature-thumbnail" loading="lazy">
+          <h3 class="creature-name">Bubblescale</h3>
+          <span class="creature-type-pill element-water">💧 Water • Dishes</span>
+          <p class="creature-desc">Its iridescent scales repel grease and grime. Speeds up dish drying with gentle warm ripples.</p>
+          <div class="evolution-path">
+            <span>Stage 2</span> ➔ <span>Evolves into Dishdrake</span>
+          </div>
+        </div>
+
+        <div class="creature-card" data-element="water">
+          <div class="card-element-stripe stripe-water"></div>
+          <div class="creature-stage-badge badge-legendary">Level 25 Final</div>
+          <img src="assets/creatures/dishdrake.png" alt="Dishdrake" class="creature-thumbnail" loading="lazy">
+          <h3 class="creature-name">Dishdrake</h3>
+          <span class="creature-type-pill element-water">💧 Water • Dishes</span>
+          <p class="creature-desc">The supreme guardian of the kitchen. A legendary water drake whose aura leaves counters sparkling spotless.</p>
+          <div class="evolution-path">
+            <span>⭐ Apex Evolution</span>
+          </div>
+        </div>
+
+        <!-- Sockmite Family -->
+        <div class="creature-card" data-element="earth">
+          <div class="card-element-stripe stripe-earth"></div>
+          <div class="creature-stage-badge">Starter</div>
+          <img src="assets/creatures/sockmite.png" alt="Sockmite" class="creature-thumbnail" loading="lazy">
+          <h3 class="creature-name">Sockmite</h3>
+          <span class="creature-type-pill element-earth">🧦 Earth • Laundry</span>
+          <p class="creature-desc">Lives among the laundry baskets. Loves matching stray socks and burrowing in fresh warm towels.</p>
+          <div class="evolution-path">
+            <span>Stage 1</span> ➔ <span>Sockgolem (10)</span> ➔ <span>Socktitan (25)</span>
+          </div>
+        </div>
+
+        <div class="creature-card" data-element="earth">
+          <div class="card-element-stripe stripe-earth"></div>
+          <div class="creature-stage-badge badge-evolved">Level 10</div>
+          <img src="assets/creatures/sockgolem.png" alt="Sockgolem" class="creature-thumbnail" loading="lazy">
+          <h3 class="creature-name">Sockgolem</h3>
+          <span class="creature-type-pill element-earth">🧦 Earth • Laundry</span>
+          <p class="creature-desc">Knitted armor of pure folded cotton. Can carry full laundry loads up two flights of stairs without breaking a sweat.</p>
+          <div class="evolution-path">
+            <span>Stage 2</span> ➔ <span>Evolves into Socktitan</span>
+          </div>
+        </div>
+
+        <div class="creature-card" data-element="earth">
+          <div class="card-element-stripe stripe-earth"></div>
+          <div class="creature-stage-badge badge-legendary">Level 25 Final</div>
+          <img src="assets/creatures/socktitan.png" alt="Socktitan" class="creature-thumbnail" loading="lazy">
+          <h3 class="creature-name">Socktitan</h3>
+          <span class="creature-type-pill element-earth">🧦 Earth • Laundry</span>
+          <p class="creature-desc">An ancient colossus of woven comfort. Ensures wrinkles vanish and wardrobe piles stay neatly stacked.</p>
+          <div class="evolution-path">
+            <span>⭐ Apex Evolution</span>
+          </div>
+        </div>
+
+        <!-- Dustbunny Family -->
+        <div class="creature-card" data-element="air">
+          <div class="card-element-stripe stripe-air"></div>
+          <div class="creature-stage-badge">Starter</div>
+          <img src="assets/creatures/dustbunny.png" alt="Dustbunny" class="creature-thumbnail" loading="lazy">
+          <h3 class="creature-name">Dustbunny</h3>
+          <span class="creature-type-pill element-air">🐰 Air • Vacuuming</span>
+          <p class="creature-desc">Floats along floorboards and under sofa cushions. Absorbs stray lint and sneezes glitter.</p>
+          <div class="evolution-path">
+            <span>Stage 1</span> ➔ <span>Whirlpup (10)</span> ➔ <span>Vacuumphant (25)</span>
+          </div>
+        </div>
+
+        <div class="creature-card" data-element="air">
+          <div class="card-element-stripe stripe-air"></div>
+          <div class="creature-stage-badge badge-evolved">Level 10</div>
+          <img src="assets/creatures/whirlpup.png" alt="Whirlpup" class="creature-thumbnail" loading="lazy">
+          <h3 class="creature-name">Whirlpup</h3>
+          <span class="creature-type-pill element-air">🐰 Air • Vacuuming</span>
+          <p class="creature-desc">Spins like a playful cyclone across the living room rugs, gathering pet hair in seconds.</p>
+          <div class="evolution-path">
+            <span>Stage 2</span> ➔ <span>Evolves into Vacuumphant</span>
+          </div>
+        </div>
+
+        <div class="creature-card" data-element="air">
+          <div class="card-element-stripe stripe-air"></div>
+          <div class="creature-stage-badge badge-legendary">Level 25 Final</div>
+          <img src="assets/creatures/vacuumphant.png" alt="Vacuumphant" class="creature-thumbnail" loading="lazy">
+          <h3 class="creature-name">Vacuumphant</h3>
+          <span class="creature-type-pill element-air">🐰 Air • Vacuuming</span>
+          <p class="creature-desc">Mighty air titan whose majestic trunk purifies room atmospheres and leaves carpets pristine.</p>
+          <div class="evolution-path">
+            <span>⭐ Apex Evolution</span>
+          </div>
+        </div>
+
+        <!-- Stinkle Family -->
+        <div class="creature-card" data-element="poison">
+          <div class="card-element-stripe stripe-poison"></div>
+          <div class="creature-stage-badge">Starter</div>
+          <img src="assets/creatures/stinkle.png" alt="Stinkle" class="creature-thumbnail" loading="lazy">
+          <h3 class="creature-name">Stinkle</h3>
+          <span class="creature-type-pill element-poison">🦨 Poison • Trash</span>
+          <p class="creature-desc">Small but spunky guardian of recycling bins. Loves taking trash bags to the curb on garbage day.</p>
+          <div class="evolution-path">
+            <span>Stage 1</span> ➔ <span>Grubsong (10)</span> ➔ <span>Trashorok (25)</span>
+          </div>
+        </div>
+
+        <div class="creature-card" data-element="poison">
+          <div class="card-element-stripe stripe-poison"></div>
+          <div class="creature-stage-badge badge-evolved">Level 10</div>
+          <img src="assets/creatures/grubsong.png" alt="Grubsong" class="creature-thumbnail" loading="lazy">
+          <h3 class="creature-name">Grubsong</h3>
+          <span class="creature-type-pill element-poison">🦨 Poison • Trash</span>
+          <p class="creature-desc">Chirps cheerful tunes while composting kitchen scraps and tidying up clutter.</p>
+          <div class="evolution-path">
+            <span>Stage 2</span> ➔ <span>Evolves into Trashorok</span>
+          </div>
+        </div>
+
+        <div class="creature-card" data-element="poison">
+          <div class="card-element-stripe stripe-poison"></div>
+          <div class="creature-stage-badge badge-legendary">Level 25 Final</div>
+          <img src="assets/creatures/trashorok.png" alt="Trashorok" class="creature-thumbnail" loading="lazy">
+          <h3 class="creature-name">Trashorok</h3>
+          <span class="creature-type-pill element-poison">🦨 Poison • Trash</span>
+          <p class="creature-desc">Heavyweight waste conqueror. Compacts recycling and leaves every alley fresh and tidy.</p>
+          <div class="evolution-path">
+            <span>⭐ Apex Evolution</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key App Features -->
+    <section id="features" class="section-container">
+      <div class="section-header">
+        <span class="section-tag element-water">🎮 Gameplay Highlights</span>
+        <h2 class="section-title">Built for Real Homes</h2>
+        <p class="section-subtitle">Choreémon combines deep RPG progression with healthy, real-world family habits.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper bg-blue">🛡️</div>
+          <h3>100% Offline &amp; Private</h3>
+          <p>No account creation, no cloud tracking, and zero ads. All data stays strictly on your phone. Built-in parent PIN (default <code>2468</code>) secures adult settings.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper bg-gold">📜</div>
+          <h3>Custom Household Quests</h3>
+          <p>Assign daily, weekday, or weekend chores to up to 8 family members. Include detailed checklists and optional photo verification with Android's secure photo picker.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper bg-pink">💖</div>
+          <h3>Mood &amp; Bonding Multipliers</h3>
+          <p>Creatures start Happy! Finishing chores keeps them smiling for a 1.2x XP bonus. Pet your buddy with Daily Love to brighten their spirits even on quiet days.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper bg-purple">🏆</div>
+          <h3>Weekly Household Leaderboard</h3>
+          <p>Compete for the weekly family crown! Spending points in the Egg Hatchery never reduces your leaderboard standing, keeping competition fun and fair.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screenshots Gallery -->
+    <section id="gallery" class="section-container">
+      <div class="section-header">
+        <span class="section-tag element-earth">📸 Real Screenshots</span>
+        <h2 class="section-title">Take a Look Inside</h2>
+        <p class="section-subtitle">Crafted with modern Jetpack Compose for buttery-smooth animations and crisp UI.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <figure class="gallery-item screenshot-thumb" data-src="assets/screenshots/01-welcome.png">
+          <img src="assets/screenshots/01-welcome.png" alt="Choreémon Welcome Screen" loading="lazy">
+          <figcaption>Welcome &amp; Profile Setup</figcaption>
+          <div class="zoom-badge">🔍 Click to Zoom</div>
+        </figure>
+
+        <figure class="gallery-item screenshot-thumb" data-src="assets/screenshots/02-home.png">
+          <img src="assets/screenshots/02-home.png" alt="Dashboard & Quests" loading="lazy">
+          <figcaption>Home Dashboard &amp; Companion</figcaption>
+          <div class="zoom-badge">🔍 Click to Zoom</div>
+        </figure>
+
+        <figure class="gallery-item screenshot-thumb" data-src="assets/screenshots/03-chore.png">
+          <img src="assets/screenshots/03-chore.png" alt="Chore Quest Detail" loading="lazy">
+          <figcaption>Quest Steps &amp; Photo Proof</figcaption>
+          <div class="zoom-badge">🔍 Click to Zoom</div>
+        </figure>
+
+        <figure class="gallery-item screenshot-thumb" data-src="assets/screenshots/04-hatchery.png">
+          <img src="assets/screenshots/04-hatchery.png" alt="In-Game Egg Hatchery" loading="lazy">
+          <figcaption>The In-Game Hatchery</figcaption>
+          <div class="zoom-badge">🔍 Click to Zoom</div>
+        </figure>
+
+        <figure class="gallery-item screenshot-thumb" data-src="assets/screenshots/05-buddies.png">
+          <img src="assets/screenshots/05-buddies.png" alt="Creature Buddies Journal" loading="lazy">
+          <figcaption>Creature Journal &amp; Evolutions</figcaption>
+          <div class="zoom-badge">🔍 Click to Zoom</div>
+        </figure>
+
+        <figure class="gallery-item screenshot-thumb" data-src="assets/screenshots/06-heroes.png">
+          <img src="assets/screenshots/06-heroes.png" alt="Household Leaderboard" loading="lazy">
+          <figcaption>Household Leaderboard</figcaption>
+          <div class="zoom-badge">🔍 Click to Zoom</div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3-Step Install Guide -->
+    <section id="install" class="section-container">
+      <div class="section-header">
+        <span class="section-tag element-poison">📖 Quick Setup</span>
+        <h2 class="section-title">How to Install on Android</h2>
+        <p class="section-subtitle">Since Choreémon is an indie release outside Google Play, follow these 3 easy steps:</p>
+      </div>
+
+      <div class="install-steps-grid">
+        <div class="install-step">
+          <div class="step-num">1</div>
+          <div class="step-icon">📥</div>
+          <h3>Download the APK</h3>
+          <p>Tap the download button on this page or scan the QR code with your phone camera to save <code>Choreemon.apk</code> to your device.</p>
+        </div>
+
+        <div class="install-step">
+          <div class="step-num">2</div>
+          <div class="step-icon">⚙️</div>
+          <h3>Allow Unknown Apps</h3>
+          <p>When you open the downloaded file, Android may ask: <em>"Allow installation from this source"</em>. Tap <strong>Settings</strong> and toggle allow for Chrome or Files.</p>
+        </div>
+
+        <div class="install-step">
+          <div class="step-num">3</div>
+          <div class="step-icon">🚀</div>
+          <h3>Install &amp; Adventure!</h3>
+          <p>Tap <strong>Install</strong>, then open Choreémon. Tap <strong>Start playing</strong> to jump into the Chen family demo or create your own household fresh!</p>
+        </div>
+      </div>
+
+      <div class="install-cta-box">
+        <h3>Ready to give it a spin?</h3>
+        <p>No account required. Jump right into the demo in less than 60 seconds.</p>
+        <a href="assets/Choreemon.apk" download="Choreemon.apk" class="btn-primary-download">
+          <span>📥 Download Choreémon APK Now (51.5 MB)</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Screenshot Lightbox Modal -->
+  <div id="lightbox-modal" class="lightbox-modal hidden" role="dialog" aria-modal="true" aria-label="Screenshot preview">
+    <div class="lightbox-overlay" id="lightbox-backdrop"></div>
+    <div class="lightbox-content">
+      <button id="lightbox-close" class="lightbox-close-btn" aria-label="Close Preview">&times;</button>
+      <img id="lightbox-img" src="" alt="Enlarged screenshot">
+      <p id="lightbox-caption" class="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <!-- Mobile Sticky Download Bar -->
+  <div class="mobile-sticky-bar">
+    <div class="sticky-info">
+      <strong>Choreémon v1.0</strong>
+      <small>51.5 MB • Android 8.0+</small>
+    </div>
+    <a href="assets/Choreemon.apk" download="Choreemon.apk" class="btn-sticky-download">
+      📥 Download APK
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="brand-logo">
+          <img src="assets/creatures/egg.png" alt="Choreemon" class="brand-icon">
+          <span class="brand-name">Choreémon</span>
+        </div>
+        <p class="footer-tagline">Turning daily chores into lovable adventures.</p>
+        <p class="footer-copy">Native Kotlin + Jetpack Compose Android Game. Offline &amp; Safe.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#hatchery">Egg Hatchery</a></li>
+          <li><a href="#creatures">Creature Families</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#gallery">Screenshots</a></li>
+          <li><a href="#install">Install Guide</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Package Info</h4>
+        <p><strong>Binary:</strong> <code>Choreemon.apk</code></p>
+        <p><strong>Size:</strong> 51.5 MB (54,045,640 bytes)</p>
+        <p><strong>Default Parent PIN:</strong> <code>2468</code></p>
+        <p><a href="#hero" class="back-to-top">⬆️ Back to Top</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
