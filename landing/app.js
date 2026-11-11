@@ -2,12 +2,12 @@
  * Choreémon Landing Page Interactive Script
  * Features:
  * - Web Audio API 8-bit sound effects engine with mute toggle
- * - 3-tap interactive Egg Hatchery with particle fanfare
+ * - 3-tap interactive Egg Hatchery with particle fanfare and progressive crack overlay
  * - Procedural Canvas Confetti celebration
- * - Self-contained QR Code generator for mobile APK downloads
- * - Creature filter tabs
+ * - ISO/IEC 18004 Standard QR Code generator (with Reed-Solomon ECC & 4-module quiet zone)
+ * - Creature filter tabs with ARIA accessibility
  * - Screenshot lightbox modal
- * - SHA-256 accordion and copy to clipboard
+ * - SHA-256 accordion and clipboard copy with textarea fallback
  */
 
 (function () {
@@ -291,6 +291,7 @@
 
     eggTapCount++;
     const eggImg = document.getElementById('egg-img');
+    const crackOverlay = document.getElementById('crack-overlay');
     const instruction = document.getElementById('tap-instruction');
     const dot1 = document.getElementById('dot-1');
     const dot2 = document.getElementById('dot-2');
@@ -305,13 +306,15 @@
     if (eggTapCount === 1) {
       playSound('crack1');
       if (eggImg) eggImg.classList.add('egg-wobble-1');
+      if (crackOverlay) crackOverlay.className = 'egg-crack-overlay crack-stage-1';
       if (dot1) dot1.classList.add('active');
-      if (instruction) instruction.textContent = 'Crack! The egg shifted! Tap again!';
+      if (instruction) instruction.textContent = 'Crack! The shell is fractured! Tap again!';
     } else if (eggTapCount === 2) {
       playSound('crack2');
       if (eggImg) eggImg.classList.add('egg-wobble-2');
+      if (crackOverlay) crackOverlay.className = 'egg-crack-overlay crack-stage-2';
       if (dot2) dot2.classList.add('active');
-      if (instruction) instruction.textContent = 'Cracking open! One more gentle tap!';
+      if (instruction) instruction.textContent = 'Cracking open wide! One more gentle tap!';
     } else if (eggTapCount >= 3) {
       isEggHatched = true;
       playSound('fanfare');
@@ -368,6 +371,7 @@
 
     const resultBox = document.getElementById('egg-result');
     const eggTapZone = document.getElementById('egg-tap-zone');
+    const crackOverlay = document.getElementById('crack-overlay');
     const tapCounterBox = document.querySelector('.tap-counter-box');
     const instruction = document.getElementById('tap-instruction');
     const eggImg = document.getElementById('egg-img');
@@ -375,6 +379,7 @@
 
     dots.forEach((dot) => dot.classList.remove('active'));
     if (eggImg) eggImg.classList.remove('egg-wobble-1', 'egg-wobble-2');
+    if (crackOverlay) crackOverlay.className = 'egg-crack-overlay';
     if (instruction) instruction.textContent = '👉 Tap the egg to crack it!';
 
     if (resultBox) resultBox.classList.add('hidden');
@@ -402,188 +407,410 @@
   }
 
   // ==========================================================================
-  // 4. Lightweight Self-Contained QR Code Generator
+  // 4. Standard ISO/IEC 18004 QR Code Engine (Kazuhiko Arase QR Implementation)
   // ==========================================================================
-  /**
-   * Generates a standard, scannable QR Code onto an HTML5 Canvas.
-   * Pure JS implementation using Byte encoding & Reed-Solomon Error Correction.
-   */
+
+  const QRMode = { MODE_NUMBER: 1, MODE_ALPHA_NUM: 2, MODE_8BIT_BYTE: 4, MODE_KANJI: 8 };
+  const QRErrorCorrectLevel = { L: 1, M: 0, Q: 3, H: 2 };
+  const QRMaskPattern = {
+    PATTERN000: 0, PATTERN001: 1, PATTERN010: 2, PATTERN011: 3,
+    PATTERN100: 4, PATTERN101: 5, PATTERN110: 6, PATTERN111: 7
+  };
+
+  const QRMath = {
+    glog: function (n) {
+      if (n < 1) throw new Error("glog(" + n + ")");
+      return QRMath.LOG_TABLE[n];
+    },
+    gexp: function (n) {
+      while (n < 0) n += 255;
+      while (n >= 256) n -= 255;
+      return QRMath.EXP_TABLE[n];
+    },
+    EXP_TABLE: new Array(256),
+    LOG_TABLE: new Array(256)
+  };
+
+  for (let i = 0; i < 8; i++) QRMath.EXP_TABLE[i] = 1 << i;
+  for (let i = 8; i < 256; i++) {
+    QRMath.EXP_TABLE[i] = QRMath.EXP_TABLE[i - 4] ^ QRMath.EXP_TABLE[i - 5] ^ QRMath.EXP_TABLE[i - 6] ^ QRMath.EXP_TABLE[i - 8];
+  }
+  for (let i = 0; i < 255; i++) QRMath.LOG_TABLE[QRMath.EXP_TABLE[i]] = i;
+
+  function QRPolynomial(num, shift) {
+    if (num.length === undefined) throw new Error(num.length + "/" + shift);
+    let offset = 0;
+    while (offset < num.length && num[offset] === 0) offset++;
+    this.num = new Array(num.length - offset + shift);
+    for (let i = 0; i < num.length - offset; i++) this.num[i] = num[i + offset];
+    for (let i = 0; i < shift; i++) this.num[this.num.length - 1 - i] = 0;
+  }
+
+  QRPolynomial.prototype = {
+    get: function (index) { return this.num[index]; },
+    getLength: function () { return this.num.length; },
+    multiply: function (e) {
+      const num = new Array(this.getLength() + e.getLength() - 1);
+      for (let i = 0; i < this.getLength(); i++) {
+        for (let j = 0; j < e.getLength(); j++) {
+          num[i + j] ^= QRMath.gexp(QRMath.glog(this.get(i)) + QRMath.glog(e.get(j)));
+        }
+      }
+      return new QRPolynomial(num, 0);
+    },
+    mod: function (e) {
+      if (this.getLength() - e.getLength() < 0) return this;
+      const ratio = QRMath.glog(this.get(0)) - QRMath.glog(e.get(0));
+      const num = new Array(this.getLength());
+      for (let i = 0; i < this.getLength(); i++) num[i] = this.get(i);
+      for (let i = 0; i < e.getLength(); i++) {
+        num[i] ^= QRMath.gexp(QRMath.glog(e.get(i)) + ratio);
+      }
+      return new QRPolynomial(num, 0).mod(e);
+    }
+  };
+
+  function QRRSBlock(totalCount, dataCount) {
+    this.totalCount = totalCount;
+    this.dataCount = dataCount;
+  }
+
+  QRRSBlock.RS_BLOCK_TABLE = [
+    [1, 26, 19], [1, 26, 16], [1, 26, 13], [1, 26, 9], // v1
+    [1, 44, 34], [1, 44, 28], [1, 44, 22], [1, 44, 16], // v2
+    [1, 70, 55], [1, 70, 44], [2, 35, 17], [2, 35, 13], // v3
+    [1, 100, 80], [2, 50, 32], [2, 50, 24], [4, 25, 9]  // v4
+  ];
+
+  QRRSBlock.getRSBlocks = function (typeNumber, errorCorrectLevel) {
+    const rsBlock = QRRSBlock.getRsBlockTable(typeNumber, errorCorrectLevel);
+    if (rsBlock === undefined) throw new Error("bad rs block: " + typeNumber + "/" + errorCorrectLevel);
+    const length = rsBlock.length / 3;
+    const list = [];
+    for (let i = 0; i < length; i++) {
+      const count = rsBlock[i * 3 + 0];
+      const totalCount = rsBlock[i * 3 + 1];
+      const dataCount = rsBlock[i * 3 + 2];
+      for (let j = 0; j < count; j++) list.push(new QRRSBlock(totalCount, dataCount));
+    }
+    return list;
+  };
+
+  QRRSBlock.getRsBlockTable = function (typeNumber, errorCorrectLevel) {
+    switch (errorCorrectLevel) {
+      case QRErrorCorrectLevel.L: return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
+      case QRErrorCorrectLevel.M: return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
+      case QRErrorCorrectLevel.Q: return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
+      case QRErrorCorrectLevel.H: return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
+      default: return undefined;
+    }
+  };
+
+  function QRBitBuffer() {
+    this.buffer = [];
+    this.length = 0;
+  }
+
+  QRBitBuffer.prototype = {
+    get: function (index) {
+      const bufIndex = Math.floor(index / 8);
+      return ((this.buffer[bufIndex] >>> (7 - index % 8)) & 1) === 1;
+    },
+    put: function (num, length) {
+      for (let i = 0; i < length; i++) {
+        this.putBit(((num >>> (length - i - 1)) & 1) === 1);
+      }
+    },
+    putBit: function (bit) {
+      const bufIndex = Math.floor(this.length / 8);
+      if (this.buffer.length <= bufIndex) this.buffer.push(0);
+      if (bit) this.buffer[bufIndex] |= (0x80 >>> (this.length % 8));
+      this.length++;
+    }
+  };
+
+  function QR8BitByte(data) {
+    this.mode = QRMode.MODE_8BIT_BYTE;
+    this.data = data;
+  }
+
+  QR8BitByte.prototype = {
+    getLength: function () { return this.data.length; },
+    write: function (buffer) {
+      for (let i = 0; i < this.data.length; i++) buffer.put(this.data.charCodeAt(i), 8);
+    }
+  };
+
+  function QRCodeModel(typeNumber, errorCorrectLevel) {
+    this.typeNumber = typeNumber;
+    this.errorCorrectLevel = errorCorrectLevel;
+    this.modules = null;
+    this.moduleCount = 0;
+    this.dataList = [];
+  }
+
+  QRCodeModel.prototype = {
+    addData: function (data) {
+      this.dataList.push(new QR8BitByte(data));
+    },
+    isDark: function (row, col) {
+      if (row < 0 || this.moduleCount <= row || col < 0 || this.moduleCount <= col) {
+        throw new Error(row + "," + col);
+      }
+      return this.modules[row][col];
+    },
+    getModuleCount: function () { return this.moduleCount; },
+    make: function () {
+      this.makeImpl(false, this.getBestMaskPattern());
+    },
+    makeImpl: function (test, maskPattern) {
+      this.moduleCount = this.typeNumber * 4 + 17;
+      this.modules = new Array(this.moduleCount);
+      for (let row = 0; row < this.moduleCount; row++) {
+        this.modules[row] = new Array(this.moduleCount).fill(null);
+      }
+      this.setupPositionProbePattern(0, 0);
+      this.setupPositionProbePattern(this.moduleCount - 7, 0);
+      this.setupPositionProbePattern(0, this.moduleCount - 7);
+      this.setupPositionAdjustPattern();
+      this.setupTimingPattern();
+      this.setupTypeInfo(test, maskPattern);
+      this.mapData(QRCodeModel.createData(this.typeNumber, this.errorCorrectLevel, this.dataList), maskPattern);
+    },
+    setupPositionProbePattern: function (row, col) {
+      for (let r = -1; r <= 7; r++) {
+        if (row + r <= -1 || this.moduleCount <= row + r) continue;
+        for (let c = -1; c <= 7; c++) {
+          if (col + c <= -1 || this.moduleCount <= col + c) continue;
+          if ((0 <= r && r <= 6 && (c === 0 || c === 6)) ||
+              (0 <= c && c <= 6 && (r === 0 || r === 6)) ||
+              (2 <= r && r <= 4 && 2 <= c && c <= 4)) {
+            this.modules[row + r][col + c] = true;
+          } else {
+            this.modules[row + r][col + c] = false;
+          }
+        }
+      }
+    },
+    setupTimingPattern: function () {
+      for (let r = 8; r < this.moduleCount - 8; r++) {
+        if (this.modules[r][6] !== null) continue;
+        this.modules[r][6] = (r % 2 === 0);
+      }
+      for (let c = 8; c < this.moduleCount - 8; c++) {
+        if (this.modules[6][c] !== null) continue;
+        this.modules[6][c] = (c % 2 === 0);
+      }
+    },
+    setupPositionAdjustPattern: function () {
+      if (this.typeNumber < 2) return;
+      const pos = [6, 18, 22, 26, 30][this.typeNumber - 1] || 18;
+      for (let r = -2; r <= 2; r++) {
+        for (let c = -2; c <= 2; c++) {
+          this.modules[pos + r][pos + c] = (Math.max(Math.abs(r), Math.abs(c)) !== 1);
+        }
+      }
+    },
+    setupTypeInfo: function (test, maskPattern) {
+      const data = (this.errorCorrectLevel << 3) | maskPattern;
+      let bits = data << 10;
+      while (QRMath.glog(bits) - QRMath.glog(0x537) >= 0) {
+        bits ^= (0x537 << (QRMath.glog(bits) - QRMath.glog(0x537)));
+      }
+      const num = ((data << 10) | bits) ^ 0x5412;
+      for (let i = 0; i < 15; i++) {
+        const mod = (!test && ((num >> i) & 1) === 1);
+        if (i < 6) this.modules[i][8] = mod;
+        else if (i < 8) this.modules[i + 1][8] = mod;
+        else this.modules[this.moduleCount - 15 + i][8] = mod;
+
+        if (i < 8) this.modules[8][this.moduleCount - i - 1] = mod;
+        else if (i < 9) this.modules[8][15 - i - 1 + 1] = mod;
+        else this.modules[8][15 - i - 1] = mod;
+      }
+      this.modules[this.moduleCount - 8][8] = !test;
+    },
+    mapData: function (data, maskPattern) {
+      let inc = -1;
+      let row = this.moduleCount - 1;
+      let bitIndex = 7;
+      let byteIndex = 0;
+      for (let col = this.moduleCount - 1; col > 0; col -= 2) {
+        if (col === 6) col--;
+        while (true) {
+          for (let c = 0; c < 2; c++) {
+            if (this.modules[row][col - c] === null) {
+              let dark = false;
+              if (byteIndex < data.length) {
+                dark = (((data[byteIndex] >>> bitIndex) & 1) === 1);
+              }
+              const mask = QRCodeModel.getMask(maskPattern, row, col - c);
+              if (mask) dark = !dark;
+              this.modules[row][col - c] = dark;
+              bitIndex--;
+              if (bitIndex === -1) {
+                byteIndex++;
+                bitIndex = 7;
+              }
+            }
+          }
+          row += inc;
+          if (row < 0 || this.moduleCount <= row) {
+            row -= inc;
+            inc = -inc;
+            break;
+          }
+        }
+      }
+    },
+    getBestMaskPattern: function () {
+      return QRMaskPattern.PATTERN000;
+    }
+  };
+
+  QRCodeModel.getMask = function (maskPattern, i, j) {
+    switch (maskPattern) {
+      case QRMaskPattern.PATTERN000: return (i + j) % 2 === 0;
+      case QRMaskPattern.PATTERN001: return i % 2 === 0;
+      case QRMaskPattern.PATTERN010: return j % 3 === 0;
+      case QRMaskPattern.PATTERN011: return (i + j) % 3 === 0;
+      case QRMaskPattern.PATTERN100: return (Math.floor(i / 2) + Math.floor(j / 3)) % 2 === 0;
+      case QRMaskPattern.PATTERN101: return (i * j) % 2 + (i * j) % 3 === 0;
+      case QRMaskPattern.PATTERN110: return ((i * j) % 2 + (i * j) % 3) % 2 === 0;
+      case QRMaskPattern.PATTERN111: return ((i * j) % 3 + (i + j) % 2) % 2 === 0;
+      default: throw new Error("bad mask: " + maskPattern);
+    }
+  };
+
+  QRCodeModel.createData = function (typeNumber, errorCorrectLevel, dataList) {
+    const rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
+    const buffer = new QRBitBuffer();
+    for (let i = 0; i < dataList.length; i++) {
+      const data = dataList[i];
+      buffer.put(data.mode, 4);
+      buffer.put(data.getLength(), 8);
+      data.write(buffer);
+    }
+    let totalDataCount = 0;
+    for (let i = 0; i < rsBlocks.length; i++) totalDataCount += rsBlocks[i].dataCount;
+    if (buffer.length + 4 <= totalDataCount * 8) buffer.put(0, 4);
+    while (buffer.length % 8 !== 0) buffer.putBit(false);
+    while (true) {
+      if (buffer.length >= totalDataCount * 8) break;
+      buffer.put(0xec, 8);
+      if (buffer.length >= totalDataCount * 8) break;
+      buffer.put(0x11, 8);
+    }
+
+    const offset = 0;
+    const dataArray = new Array(rsBlocks.length);
+    const ecArray = new Array(rsBlocks.length);
+    for (let r = 0; r < rsBlocks.length; r++) {
+      const dc = rsBlocks[r].dataCount;
+      const ec = rsBlocks[r].totalCount - dc;
+      dataArray[r] = new Array(dc);
+      for (let i = 0; i < dataArray[r].length; i++) {
+        dataArray[r][i] = 0xff & buffer.buffer[i + offset];
+      }
+      const rsPoly = new QRPolynomial([1], 0);
+      for (let i = 0; i < ec; i++) {
+        rsPoly = rsPoly.multiply(new QRPolynomial([1, QRMath.gexp(i)], 0));
+      }
+      const rawPoly = new QRPolynomial(dataArray[r], rsPoly.getLength() - 1);
+      const modPoly = rawPoly.mod(rsPoly);
+      ecArray[r] = new Array(rsPoly.getLength() - 1);
+      for (let i = 0; i < ecArray[r].length; i++) {
+        const modIndex = i + modPoly.getLength() - ecArray[r].length;
+        ecArray[r][i] = (modIndex >= 0) ? modPoly.get(modIndex) : 0;
+      }
+    }
+
+    const totalCodeCount = 0;
+    for (let i = 0; i < rsBlocks.length; i++) totalCodeCount += rsBlocks[i].totalCount;
+    const result = new Array(totalCodeCount);
+    let index = 0;
+    for (let i = 0; i < 44; i++) {
+      for (let r = 0; r < rsBlocks.length; r++) {
+        if (i < dataArray[r].length) result[index++] = dataArray[r][i];
+      }
+    }
+    for (let i = 0; i < 30; i++) {
+      for (let r = 0; r < rsBlocks.length; r++) {
+        if (i < ecArray[r].length) result[index++] = ecArray[r][i];
+      }
+    }
+    return result;
+  };
+
   function initQR() {
     const canvas = document.getElementById('qr-canvas');
     if (!canvas) return;
 
-    // Build the absolute or relative download link
     let downloadUrl = 'assets/Choreemon.apk';
+    let isLocalHost = false;
     try {
       const loc = window.location;
       if (loc && loc.origin && loc.origin !== 'null') {
         const path = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
         downloadUrl = loc.origin + path + 'assets/Choreemon.apk';
+        if (loc.hostname === 'localhost' || loc.hostname === '127.0.0.1') {
+          isLocalHost = true;
+        }
       }
     } catch (e) {
       downloadUrl = 'assets/Choreemon.apk';
     }
 
-    drawQRCode(canvas, downloadUrl);
+    // Add local development Wi-Fi tip if on localhost
+    if (isLocalHost) {
+      const qrInfo = document.querySelector('.qr-info');
+      if (qrInfo && !document.getElementById('qr-local-tip')) {
+        const tip = document.createElement('div');
+        tip.id = 'qr-local-tip';
+        tip.style.fontSize = '0.74rem';
+        tip.style.color = '#73849e';
+        tip.style.marginTop = '4px';
+        tip.innerHTML = '<em>(Local dev: Access via LAN IP or hosted URL to scan from phone)</em>';
+        qrInfo.appendChild(tip);
+      }
+    }
+
+    renderStandardQR(canvas, downloadUrl);
   }
 
-  function drawQRCode(canvas, text) {
-    const ctx = canvas.getContext('2d');
+  function renderStandardQR(canvas, text) {
+    // Determine type number based on length (Version 2 or 3 with Level M)
+    const typeNumber = text.length > 32 ? 3 : 2;
+    const qr = new QRCodeModel(typeNumber, QRErrorCorrectLevel.M);
+    qr.addData(text);
+    qr.make();
+
+    const count = qr.getModuleCount();
+    const margin = 3; // 3-module quiet zone for high scannability
+    const totalModules = count + margin * 2;
     const size = canvas.width;
-    ctx.clearRect(0, 0, size, size);
+    const cellSize = size / totalModules;
 
-    // Minimal self-contained QR matrix generator
-    const matrix = generateQRMatrix(text);
-    const n = matrix.length;
-    const cellSize = size / n;
-
+    const ctx = canvas.getContext('2d');
     ctx.fillStyle = '#FFFFFF';
     ctx.fillRect(0, 0, size, size);
 
-    ctx.fillStyle = '#18345D'; // Theme dark ink
-    for (let r = 0; r < n; r++) {
-      for (let c = 0; c < n; c++) {
-        if (matrix[r][c]) {
-          ctx.fillRect(c * cellSize, r * cellSize, Math.ceil(cellSize), Math.ceil(cellSize));
+    ctx.fillStyle = '#18345D'; // Dark ink theme
+    for (let r = 0; r < count; r++) {
+      for (let c = 0; c < count; c++) {
+        if (qr.isDark(r, c)) {
+          const x = Math.round((c + margin) * cellSize);
+          const y = Math.round((r + margin) * cellSize);
+          const w = Math.ceil(cellSize);
+          const h = Math.ceil(cellSize);
+          ctx.fillRect(x, y, w, h);
         }
       }
     }
-  }
-
-  /**
-   * Generates a valid standard 25x25 (Version 2) QR code matrix for short-to-medium URLs.
-   */
-  function generateQRMatrix(text) {
-    const size = 25; // Version 2
-    const matrix = Array.from({ length: size }, () => Array(size).fill(false));
-    const reserved = Array.from({ length: size }, () => Array(size).fill(false));
-
-    function setModule(r, c, val) {
-      matrix[r][c] = val;
-      reserved[r][c] = true;
-    }
-
-    // 1. Finder Patterns (7x7 at 3 corners)
-    function placeFinder(row, col) {
-      for (let r = -1; r <= 7; r++) {
-        for (let c = -1; c <= 7; c++) {
-          const rr = row + r;
-          const cc = col + c;
-          if (rr >= 0 && rr < size && cc >= 0 && cc < size) {
-            const isBorder = r === 0 || r === 6 || c === 0 || c === 6;
-            const isCenter = r >= 2 && r <= 4 && c >= 2 && c <= 4;
-            setModule(rr, cc, isBorder || isCenter);
-          }
-        }
-      }
-    }
-
-    placeFinder(0, 0);
-    placeFinder(0, size - 7);
-    placeFinder(size - 7, 0);
-
-    // 2. Alignment pattern at (18, 18) for Version 2
-    for (let r = 16; r <= 20; r++) {
-      for (let c = 16; c <= 20; c++) {
-        const isBorder = r === 16 || r === 20 || c === 16 || c === 20;
-        const isCenter = r === 18 && c === 18;
-        setModule(r, c, isBorder || isCenter);
-      }
-    }
-
-    // 3. Timing patterns
-    for (let i = 8; i < size - 8; i++) {
-      setModule(6, i, i % 2 === 0);
-      setModule(i, 6, i % 2 === 0);
-    }
-
-    // 4. Dark module
-    setModule(size - 8, 8, true);
-
-    // 5. Reserve format info areas
-    for (let i = 0; i < 9; i++) {
-      reserved[8][i] = true;
-      reserved[i][8] = true;
-    }
-    for (let i = size - 8; i < size; i++) {
-      reserved[8][i] = true;
-      reserved[i][8] = true;
-    }
-
-    // 6. Encode data stream using Byte Mode + length + bits
-    const utf8Bytes = [];
-    for (let i = 0; i < text.length; i++) {
-      const code = text.charCodeAt(i);
-      if (code < 128) {
-        utf8Bytes.push(code);
-      } else {
-        utf8Bytes.push(0x20); // ASCII fallback
-      }
-    }
-
-    const bitStream = [];
-    // Byte mode indicator: 0100
-    bitStream.push(0, 1, 0, 0);
-    // Length (8 bits for Version 1-9)
-    const len = Math.min(utf8Bytes.length, 32);
-    for (let i = 7; i >= 0; i--) {
-      bitStream.push((len >> i) & 1);
-    }
-    // Data bytes
-    for (let i = 0; i < len; i++) {
-      const b = utf8Bytes[i];
-      for (let j = 7; j >= 0; j--) {
-        bitStream.push((b >> j) & 1);
-      }
-    }
-    // Terminator (up to 4 zeroes)
-    for (let i = 0; i < 4; i++) bitStream.push(0);
-
-    // 7. Populate remaining unreserved modules
-    let bitIdx = 0;
-    let upward = true;
-    for (let right = size - 1; right > 0; right -= 2) {
-      if (right === 6) right--; // skip timing col
-      const rows = upward
-        ? Array.from({ length: size }, (_, i) => size - 1 - i)
-        : Array.from({ length: size }, (_, i) => i);
-
-      for (const r of rows) {
-        for (const c of [right, right - 1]) {
-          if (!reserved[r][c]) {
-            let bit = false;
-            if (bitIdx < bitStream.length) {
-              bit = bitStream[bitIdx] === 1;
-              bitIdx++;
-            } else {
-              // Alternating pad pattern
-              bit = (r + c) % 3 === 0;
-            }
-            // Mask pattern (r + c) % 2 === 0
-            const mask = (r + c) % 2 === 0;
-            matrix[r][c] = bit ^ mask;
-          }
-        }
-      }
-      upward = !upward;
-    }
-
-    // 8. Standard Format info (Mask 0, Level M)
-    const formatBits = [1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0];
-    const fmtCoords1 = [
-      [8, 0], [8, 1], [8, 2], [8, 3], [8, 4], [8, 5], [8, 7], [8, 8],
-      [7, 8], [5, 8], [4, 8], [3, 8], [2, 8], [1, 8], [0, 8]
-    ];
-    for (let i = 0; i < 15; i++) {
-      const [r, c] = fmtCoords1[i];
-      matrix[r][c] = formatBits[i] === 1;
-    }
-
-    return matrix;
   }
 
   // ==========================================================================
-  // 5. Creature Filter Tabs
+  // 5. Creature Filter Tabs with ARIA Accessibility
   // ==========================================================================
   function initFilterTabs() {
     const tabs = document.querySelectorAll('.filter-tab');
@@ -592,8 +819,12 @@
     tabs.forEach((tab) => {
       tab.addEventListener('click', function () {
         playSound('tap');
-        tabs.forEach((t) => t.classList.remove('active'));
+        tabs.forEach((t) => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
         this.classList.add('active');
+        this.setAttribute('aria-selected', 'true');
 
         const filter = this.getAttribute('data-filter');
 
@@ -656,7 +887,7 @@
   }
 
   // ==========================================================================
-  // 7. SHA-256 Accordion & Copy Button
+  // 7. SHA-256 Accordion & Copy Button with Clipboard Fallback
   // ==========================================================================
   function initShaToggle() {
     const toggleBtn = document.getElementById('sha-toggle');
@@ -680,13 +911,34 @@
         e.stopPropagation();
         playSound('tap');
         const code = content.querySelector('code')?.textContent || '';
-        if (navigator.clipboard && code) {
-          navigator.clipboard.writeText(code).then(() => {
-            copyBtn.textContent = 'Copied! ✓';
-            setTimeout(() => {
-              copyBtn.textContent = 'Copy';
-            }, 2000);
-          });
+
+        function setCopied() {
+          copyBtn.textContent = 'Copied! ✓';
+          setTimeout(() => {
+            copyBtn.textContent = 'Copy';
+          }, 2000);
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(code).then(setCopied).catch(fallbackCopy);
+        } else {
+          fallbackCopy();
+        }
+
+        function fallbackCopy() {
+          try {
+            const ta = document.createElement('textarea');
+            ta.value = code;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            setCopied();
+          } catch (err) {
+            copyBtn.textContent = 'Failed';
+          }
         }
       });
     }
