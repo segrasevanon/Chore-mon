@@ -1,0 +1,977 @@
+{
+  "review_date": "2026-10-19",
+  "android_commit": "fc5e250a0eb17c9fb585d2f8687a3061ff0238b4",
+  "sources": [
+    {
+      "id": "A1",
+      "path": "Chore-mon/app/src/main/java/com/choreemon/app/MainActivity.kt",
+      "sha256": "40325e3be393489a3bec47ed0867645f937f153c6b255c4bd9c95afaf0c802fb",
+      "locators": [
+        {
+          "symbol": "fun ChoreemonApp",
+          "lines": [
+            52
+          ]
+        },
+        {
+          "symbol": "Lifecycle.Event.ON_STOP",
+          "lines": [
+            84
+          ]
+        },
+        {
+          "symbol": "ParentPinDialog",
+          "lines": [
+            167
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A2",
+      "path": "Chore-mon/app/src/main/java/com/choreemon/app/data/GameViewModel.kt",
+      "sha256": "820180c42d28457b2e258549f8f99d7f24d5b0a2cb5b526b81f77444183dd80d",
+      "locators": [
+        {
+          "symbol": "fun update",
+          "lines": [
+            15
+          ]
+        },
+        {
+          "symbol": "fun createHousehold",
+          "lines": [
+            53
+          ]
+        },
+        {
+          "symbol": "fun addMember",
+          "lines": [
+            46
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A3",
+      "path": "Chore-mon/app/src/main/java/com/choreemon/app/data/GameRepository.kt",
+      "sha256": "ef2e5515465f8a23768b7e6444c0266316fa2474689ef30f3ea9416d2f830c9c",
+      "locators": [
+        {
+          "symbol": "object SaveCodec",
+          "lines": [
+            15
+          ]
+        },
+        {
+          "symbol": "object ParentPin",
+          "lines": [
+            50
+          ]
+        },
+        {
+          "symbol": "class GameRepository",
+          "lines": [
+            56
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A4",
+      "path": "Chore-mon/app/src/main/java/com/choreemon/app/data/GameModels.kt",
+      "sha256": "15ad6bea8d7c663a5fa394665d002f4cfeadc09366e3842c84fe5e61c51d6d14",
+      "locators": [
+        {
+          "symbol": "data class GameState",
+          "lines": [
+            49
+          ]
+        },
+        {
+          "symbol": "object GameRules",
+          "lines": [
+            66
+          ]
+        },
+        {
+          "symbol": "fun claimMilestone",
+          "lines": [
+            151
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A5",
+      "path": "Chore-mon/app/src/main/AndroidManifest.xml",
+      "sha256": "7d0b9fd095b2ea5e6424516d486f86afeab1c14a98213e79ed2e89e980cd864c",
+      "locators": [
+        {
+          "symbol": "android:allowBackup",
+          "lines": [
+            4
+          ]
+        },
+        {
+          "symbol": "android:exported",
+          "lines": [
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A6",
+      "path": "Chore-mon/app/src/main/java/com/choreemon/app/ui/AdminScreen.kt",
+      "sha256": "5f8356c2cb8b20a577126ba2d166cfe7ad7248c5193db18759be7f565c8cb9e7",
+      "locators": [
+        {
+          "symbol": "fun ParentPinDialog",
+          "lines": [
+            147
+          ]
+        },
+        {
+          "symbol": "attempts >= 5",
+          "lines": [
+            162
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A7",
+      "path": "Chore-mon/app/src/main/java/com/choreemon/app/ui/QuestDetail.kt",
+      "sha256": "c7cd767db60b59484c6191b20b2032dec4f47af3da59469eaaaefb2986485e87",
+      "locators": [
+        {
+          "symbol": "fun PhotoProof",
+          "lines": [
+            30
+          ]
+        },
+        {
+          "symbol": "takePersistableUriPermission",
+          "lines": [
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A8",
+      "path": "Chore-mon/app/build.gradle.kts",
+      "sha256": "50659da36f3c21f305b2e6346748bff50c8144c5d71c2795f10b89a6f504a364",
+      "locators": [
+        {
+          "symbol": "minSdk",
+          "lines": [
+            12
+          ]
+        },
+        {
+          "symbol": "dependencies",
+          "lines": [
+            29
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A9",
+      "path": "Chore-mon/app/src/test/java/com/choreemon/app/data/GameRulesTest.kt",
+      "sha256": "9742576774f6c6ab74ee2d3d511901e19ade22e899df3cfc915fddf2a762f986",
+      "locators": [
+        {
+          "symbol": "class GameRulesTest",
+          "lines": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A10",
+      "path": "Chore-mon/app/src/androidTest/java/com/choreemon/app/GameFlowTest.kt",
+      "sha256": "0496c442fbd4c68c083ffd1901ab9dfe3b2dfc6c1fc1ac918130ccdfe538fe07",
+      "locators": [
+        {
+          "symbol": "class GameFlowTest",
+          "lines": [
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A11",
+      "path": "Chore-mon/verification/QA.md",
+      "sha256": "ab79f8b0f2d1f74e7e58c70c83fb08f4145d96e914e551f1fab10f7cc5b8a0dc",
+      "locators": [
+        {
+          "symbol": "21 tests passed",
+          "lines": [
+            15
+          ]
+        },
+        {
+          "symbol": "4 instrumented tests",
+          "lines": [
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B1",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/Application.kt",
+      "sha256": "e8397c2fc32a7af1719276b4e65ac7eb82ad45d4771bd5ba59a0cd8b10dc8e50",
+      "locators": [
+        {
+          "symbol": "fun Application.module",
+          "lines": [
+            22
+          ]
+        },
+        {
+          "symbol": "anyHost()",
+          "lines": [
+            37
+          ]
+        },
+        {
+          "symbol": "validate {",
+          "lines": [
+            69
+          ]
+        },
+        {
+          "symbol": "authenticate(\"jwt\")",
+          "lines": [
+            89
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B2",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/config/ServiceRegistry.kt",
+      "sha256": "3e034942e720f674e58e8415e2ef740d0a4be31f37b5e9aa0945e5231717abd8",
+      "locators": [
+        {
+          "symbol": "fun create",
+          "lines": [
+            32
+          ]
+        },
+        {
+          "symbol": "if (config.isAzure)",
+          "lines": [
+            36
+          ]
+        },
+        {
+          "symbol": "FcmDirectService",
+          "lines": [
+            9,
+            47
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B3",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/config/AppConfig.kt",
+      "sha256": "19cc25e88bfd8c0602e3165fa128bcbc27b290df6a7dcc441db779bc629ca881",
+      "locators": [
+        {
+          "symbol": "fun load",
+          "lines": [
+            14
+          ]
+        },
+        {
+          "symbol": "expiryHours",
+          "lines": [
+            26,
+            52
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B4",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/db/DatabaseFactory.kt",
+      "sha256": "25079438b9f595c04576b3c131b967f46c4c0e2de0e95863ad6755d9fe48428d",
+      "locators": [
+        {
+          "symbol": "fun init",
+          "lines": [
+            13
+          ]
+        },
+        {
+          "symbol": "maximumPoolSize",
+          "lines": [
+            36
+          ]
+        },
+        {
+          "symbol": "suspend fun <T> dbQuery",
+          "lines": [
+            61
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B5",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/db/tables/Tables.kt",
+      "sha256": "748bdbde6f743f185d159cb2bd9f3af9e1fceba9ffbe99e72ef8778f6766470a",
+      "locators": [
+        {
+          "symbol": "object Households",
+          "lines": [
+            5
+          ]
+        },
+        {
+          "symbol": "object Completions",
+          "lines": [
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B6",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/routes/AuthRoutes.kt",
+      "sha256": "8c6b851b867fafe14e4da123dd2229c10db1360b54b354efb375162e6eb42122",
+      "locators": [
+        {
+          "symbol": "post(\"/register\")",
+          "lines": [
+            41
+          ]
+        },
+        {
+          "symbol": "post(\"/login\")",
+          "lines": [
+            99
+          ]
+        },
+        {
+          "symbol": "post(\"/join\")",
+          "lines": [
+            128
+          ]
+        },
+        {
+          "symbol": "post(\"/device-token\")",
+          "lines": [
+            170
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B7",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/routes/HouseholdsRoutes.kt",
+      "sha256": "8fc4634d693af1466ae2846036da0d6dd6db7c6a8c6221a9e5438a1ca3cb0c71",
+      "locators": [
+        {
+          "symbol": "pinSalt = household.pinSalt",
+          "lines": [
+            43
+          ]
+        },
+        {
+          "symbol": "post(\"/verify-pin\")",
+          "lines": [
+            51
+          ]
+        },
+        {
+          "symbol": "put(\"/pin\")",
+          "lines": [
+            65
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B8",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/routes/MembersRoutes.kt",
+      "sha256": "7565ca113961d9cdd27f20dcd3a998301f755c8c1008b7eec2bd2e8c61de8ea4",
+      "locators": [
+        {
+          "symbol": "fun Route.membersRoutes",
+          "lines": [
+            23
+          ]
+        },
+        {
+          "symbol": "post(\"/milestone\")",
+          "lines": [
+            79
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B9",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/routes/ChoresRoutes.kt",
+      "sha256": "ff20b3aa17dd385d19353077dcb5a49f246cfceb615f401ee7e08f74c045cb3c",
+      "locators": [
+        {
+          "symbol": "post {",
+          "lines": [
+            45
+          ]
+        },
+        {
+          "symbol": "put(\"/{id}\")",
+          "lines": [
+            81
+          ]
+        },
+        {
+          "symbol": "delete(\"/{id}\")",
+          "lines": [
+            107
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B10",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/routes/CompletionsRoutes.kt",
+      "sha256": "9c40a3c34b7c1e43b16d5e1fcf4f121b095b5c61c94b3a4c6b1e9bbbe47cd4c4",
+      "locators": [
+        {
+          "symbol": "post {",
+          "lines": [
+            34
+          ]
+        },
+        {
+          "symbol": "post(\"/{id}/review\")",
+          "lines": [
+            97
+          ]
+        },
+        {
+          "symbol": "updateStatus",
+          "lines": [
+            114
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B11",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/routes/CreaturesRoutes.kt",
+      "sha256": "764b575c9679b00fd066da14636ce078921d1ebc907ee7cbc8d5566a2168e5fd",
+      "locators": [
+        {
+          "symbol": "post(\"/hatch\")",
+          "lines": [
+            32
+          ]
+        },
+        {
+          "symbol": "post(\"/{id}/evolve\")",
+          "lines": [
+            65
+          ]
+        },
+        {
+          "symbol": "patch(\"/{id}\")",
+          "lines": [
+            101
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B12",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/routes/PhotosRoutes.kt",
+      "sha256": "f45253e7e06f77d7ee91c258007ecee656b2dc7b664b0f63baad77fe384e950f",
+      "locators": [
+        {
+          "symbol": "post(\"/upload\")",
+          "lines": [
+            14
+          ]
+        },
+        {
+          "symbol": "get(\"/{filename}\")",
+          "lines": [
+            37
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B13",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/routes/LeaderboardRoutes.kt",
+      "sha256": "6f122f1f81cee8d2c14616ce4f4fc6115f12b24a6fea8256f65f9e81ff405f3a",
+      "locators": [
+        {
+          "symbol": "weeklyPoints",
+          "lines": [
+            15,
+            27,
+            34
+          ]
+        },
+        {
+          "symbol": "totalPoints = m.points",
+          "lines": [
+            35
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B14",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/repositories/HouseholdRepository.kt",
+      "sha256": "a9cdd7d0df917a6072efc124952e61818b0e45a94bb4bdec01f5dd04b35156a3",
+      "locators": [
+        {
+          "symbol": "fun createHousehold",
+          "lines": [
+            34
+          ]
+        },
+        {
+          "symbol": "fun updateWeekStart",
+          "lines": [
+            71
+          ]
+        },
+        {
+          "symbol": "fun generateInviteCode",
+          "lines": [
+            84
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B15",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/repositories/MemberRepository.kt",
+      "sha256": "15673e29298eed8d681a3f43f1ed10146d282066e3af0c99a7fd9346ef77b887",
+      "locators": [
+        {
+          "symbol": "fun updatePoints",
+          "lines": [
+            87
+          ]
+        },
+        {
+          "symbol": "fun resetWeeklyPoints",
+          "lines": [
+            95
+          ]
+        },
+        {
+          "symbol": "fun getDeviceTokensForHousehold",
+          "lines": [
+            138
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B16",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/repositories/ChoreRepository.kt",
+      "sha256": "20a719b2fa6bf6bab7954444e4c694d01ae2740d17b76c9e2eb2d21e74f8d2fd",
+      "locators": [
+        {
+          "symbol": "fun findByHousehold",
+          "lines": [
+            91
+          ]
+        },
+        {
+          "symbol": "val filtered",
+          "lines": [
+            93
+          ]
+        },
+        {
+          "symbol": "fun updateChore",
+          "lines": [
+            124
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B17",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/repositories/CompletionRepository.kt",
+      "sha256": "218786eef807e0b5d6a81c89f49a4240c119355a302246e7f79494955c2331e3",
+      "locators": [
+        {
+          "symbol": "fun createCompletion",
+          "lines": [
+            24
+          ]
+        },
+        {
+          "symbol": "fun updateStatus",
+          "lines": [
+            60
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B18",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/repositories/CreatureRepository.kt",
+      "sha256": "4b521b6f989f74eb640ddf5fa2e5afff060bb51e4011a16c2ee18e4e9612daa2",
+      "locators": [
+        {
+          "symbol": "fun addXp",
+          "lines": [
+            70
+          ]
+        },
+        {
+          "symbol": "fun evolve",
+          "lines": [
+            77
+          ]
+        },
+        {
+          "symbol": "fun setActive",
+          "lines": [
+            99
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B19",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/services/local/LocalJwtAuth.kt",
+      "sha256": "7d43baed553a924c68ef21f59bc3aacc05fd9b1415138068b7b3adf40c02f27b",
+      "locators": [
+        {
+          "symbol": "Algorithm.HMAC256",
+          "lines": [
+            12
+          ]
+        },
+        {
+          "symbol": "fun verifier",
+          "lines": [
+            14
+          ]
+        },
+        {
+          "symbol": "fun generateToken",
+          "lines": [
+            19
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B20",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/services/azure/AzureB2CAuth.kt",
+      "sha256": "161dff12a219afc670910f62f164d912752c6171ee933007f0d69cbdc5556809",
+      "locators": [
+        {
+          "symbol": "Algorithm.none()",
+          "lines": [
+            15
+          ]
+        },
+        {
+          "symbol": "return \"\"",
+          "lines": [
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B21",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/services/local/LocalFileStorage.kt",
+      "sha256": "5968de8862e755f7b411de2835a100850b468873d6d127aa01cb0d9e10e87bfc",
+      "locators": [
+        {
+          "symbol": "override suspend fun upload",
+          "lines": [
+            18
+          ]
+        },
+        {
+          "symbol": "override suspend fun getFile",
+          "lines": [
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B22",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/services/azure/AzureBlobStorage.kt",
+      "sha256": "09a8b4e20bf3426d87d22bc87a9b4e1311e1ba8319ead39eed151a132f5b78cc",
+      "locators": [
+        {
+          "symbol": "override suspend fun upload",
+          "lines": [
+            10
+          ]
+        },
+        {
+          "symbol": "return null",
+          "lines": [
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B23",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/services/local/FcmDirectService.kt",
+      "sha256": "b079cd12a55fdb2a6a3f247d0c66131226ff0de4bffd69d9c8878c2c4e27231d",
+      "locators": [
+        {
+          "symbol": "if (serverKey.isNullOrBlank())",
+          "lines": [
+            28
+          ]
+        },
+        {
+          "symbol": "httpClient.post",
+          "lines": [
+            43
+          ]
+        },
+        {
+          "symbol": "logger.error",
+          "lines": [
+            49
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B24",
+      "path": "choreemon-backend/src/main/kotlin/com/choreemon/backend/domain/GameModels.kt",
+      "sha256": "da0298bcedf324cf0716654ad1f88c025a213a1cac95b5e1d6b2db08f39849f6",
+      "locators": [
+        {
+          "symbol": "data class GameState",
+          "lines": [
+            53
+          ]
+        },
+        {
+          "symbol": "object GameRules",
+          "lines": [
+            71
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B25",
+      "path": "choreemon-backend/build.gradle.kts",
+      "sha256": "14e680a5e10e8becd44a201694d1331e8a993e127baed0dc72a65edd954096aa",
+      "locators": [
+        {
+          "symbol": "version =",
+          "lines": [
+            7,
+            18,
+            19,
+            20,
+            21
+          ]
+        },
+        {
+          "symbol": "val exposed_version",
+          "lines": [
+            19
+          ]
+        },
+        {
+          "symbol": "archiveClassifier",
+          "lines": [
+            83
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B26",
+      "path": "choreemon-backend/Dockerfile",
+      "sha256": "ce10ada38989bf16d2186f10f3d6d96e11331fba8ba8cc6749d72334cc2dd6a8",
+      "locators": [
+        {
+          "symbol": "FROM",
+          "lines": [
+            2,
+            8
+          ]
+        },
+        {
+          "symbol": "COPY --from",
+          "lines": [
+            11
+          ]
+        },
+        {
+          "symbol": "USER choreemon",
+          "lines": [
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B27",
+      "path": "choreemon-backend/docker-compose.yml",
+      "sha256": "a1fefd7474f2245bd31f2734990dec911273b985e2ef0f6d02240f8566150f3e",
+      "locators": [
+        {
+          "symbol": "services:",
+          "lines": [
+            3
+          ]
+        },
+        {
+          "symbol": "env_file:",
+          "lines": [
+            44
+          ]
+        },
+        {
+          "symbol": "volumes:",
+          "lines": [
+            15,
+            36,
+            49,
+            58
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B28",
+      "path": "choreemon-backend/gradle/wrapper/gradle-wrapper.properties",
+      "sha256": "03e759961c8cfd784481123c7d328fbc9d5e4ecdbb3c83ef563f90ef84ee3000",
+      "locators": [
+        {
+          "symbol": "distributionUrl",
+          "lines": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "id": "V1",
+      "path": "choreemon-backend/src/main/resources/db/migration/V1__create_households.sql",
+      "sha256": "4bafe5d78bdfebe642ca665fec4cda0df90405027a4861b0cc2a815a8e5eb2ea",
+      "locators": [
+        {
+          "symbol": "complete migration",
+          "lines": [
+            1,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "id": "V2",
+      "path": "choreemon-backend/src/main/resources/db/migration/V2__create_members.sql",
+      "sha256": "ed9df7f4a71de0137270343717c8b47ecec04051a977670a8a95c4bfb89c7d95",
+      "locators": [
+        {
+          "symbol": "complete migration",
+          "lines": [
+            1,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "V3",
+      "path": "choreemon-backend/src/main/resources/db/migration/V3__create_creatures.sql",
+      "sha256": "eed0fc09498236bba4f9f196b9155b7b13c3eaf968ad5515e93bd71ccd0fba01",
+      "locators": [
+        {
+          "symbol": "complete migration",
+          "lines": [
+            1,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "id": "V4",
+      "path": "choreemon-backend/src/main/resources/db/migration/V4__create_chores.sql",
+      "sha256": "1a1b80d66e6e5f10e1e11bf2f44a030293796d30b98d0d7d28b529d68a856fc2",
+      "locators": [
+        {
+          "symbol": "complete migration",
+          "lines": [
+            1,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "id": "V5",
+      "path": "choreemon-backend/src/main/resources/db/migration/V5__create_completions.sql",
+      "sha256": "d8e9796de41c2a6c0244d697efd2e3ecd21e6cf06edea59ee46a28390602caa8",
+      "locators": [
+        {
+          "symbol": "complete migration",
+          "lines": [
+            1,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "id": "V6",
+      "path": "choreemon-backend/src/main/resources/db/migration/V6__create_device_tokens.sql",
+      "sha256": "4486ae96fbaefa0ee70d3d8c756634090a86bd8a82d7db2159c4483548d2df28",
+      "locators": [
+        {
+          "symbol": "complete migration",
+          "lines": [
+            1,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "V7",
+      "path": "choreemon-backend/src/main/resources/db/migration/V7__create_claimed_milestones.sql",
+      "sha256": "ecdb43ac60d82555310f53ac09e7b89256495f35c22b05cdeba2f6cbd59443aa",
+      "locators": [
+        {
+          "symbol": "complete migration",
+          "lines": [
+            1,
+            7
+          ]
+        }
+      ]
+    }
+  ]
+}

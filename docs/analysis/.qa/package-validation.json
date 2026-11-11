@@ -1,0 +1,11 @@
+{
+  "review_date": "2026-10-19",
+  "source_hashes_verified": 46,
+  "tables": 8,
+  "foreign_keys": 10,
+  "columns": 57,
+  "threats": 14,
+  "rendering": "Packaged renderer unavailable because LibreOffice is absent; rendered with installed Microsoft Word and bundled Poppler.",
+  "application_tests": "Not rerun; documentation-only analysis.",
+  "application_source_changes": "None; reviewed source hashes unchanged."
+}

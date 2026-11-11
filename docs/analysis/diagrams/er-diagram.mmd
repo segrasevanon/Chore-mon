@@ -1,0 +1,84 @@
+erDiagram
+    Households ||--o{ Members : household_id
+    Members ||--o{ Creatures : owner_id
+    Households ||--o{ Chores : household_id
+    Chores ||--o{ ChoreAssignments : chore_id
+    Members ||--o{ ChoreAssignments : member_id
+    Chores ||--o{ Completions : chore_id
+    Members ||--o{ Completions : member_id
+    Creatures ||--o{ Completions : creature_id
+    Members ||--o{ DeviceTokens : member_id
+    Members ||--o{ ClaimedMilestones : member_id
+    Households {
+        NVARCHAR_36 id PK "required"
+        NVARCHAR_100 name  "required"
+        NVARCHAR_12 invite_code UK "required"
+        NVARCHAR_32 pin_salt  "required"
+        NVARCHAR_64 pin_hash  "required"
+        NVARCHAR_10 week_start  "required"
+        NVARCHAR_50 created_at  "required"
+    }
+    Members {
+        NVARCHAR_36 id PK "required"
+        NVARCHAR_36 household_id FK "required"
+        NVARCHAR_256 auth_email UK "nullable; unique only when not null"
+        NVARCHAR_256 auth_password_hash  "nullable"
+        NVARCHAR_64 name  "required"
+        INT avatar  "required"
+        INT points  "required"
+        INT weekly_points  "required"
+        BIT is_parent  "required"
+    }
+    Creatures {
+        NVARCHAR_36 id PK "required"
+        NVARCHAR_36 owner_id FK "required"
+        NVARCHAR_10 element  "required"
+        NVARCHAR_12 rarity  "required"
+        INT xp  "required"
+        INT stage  "required"
+        NVARCHAR_64 nickname  "required"
+        NVARCHAR_10 adopted_date  "required"
+        NVARCHAR_10 loved_on  "required"
+        BIT is_favorite  "required"
+        BIT is_active  "required"
+    }
+    Chores {
+        NVARCHAR_36 id PK "required"
+        NVARCHAR_36 household_id FK "required"
+        NVARCHAR_100 title  "required"
+        NVARCHAR_500 description  "required"
+        INT points  "required"
+        NVARCHAR_10 element  "required"
+        NVARCHAR_12 schedule  "required"
+        BIT requires_approval  "required"
+        BIT archived  "required"
+        NVARCHAR_MAX steps  "required"
+    }
+    ChoreAssignments {
+        NVARCHAR_36 chore_id PK,FK "required"
+        NVARCHAR_36 member_id PK,FK "required"
+    }
+    Completions {
+        NVARCHAR_36 id PK "required"
+        NVARCHAR_36 chore_id FK "required"
+        NVARCHAR_36 member_id FK "required"
+        NVARCHAR_36 creature_id FK "required"
+        NVARCHAR_10 date  "required"
+        NVARCHAR_100 title  "required"
+        INT points  "required"
+        INT xp  "required"
+        NVARCHAR_10 status  "required"
+        NVARCHAR_500 photo_url  "required"
+    }
+    DeviceTokens {
+        NVARCHAR_36 id PK "required"
+        NVARCHAR_36 member_id FK "required"
+        NVARCHAR_256 fcm_token  "required"
+        NVARCHAR_10 platform  "required"
+        NVARCHAR_50 updated_at  "required"
+    }
+    ClaimedMilestones {
+        NVARCHAR_36 member_id PK,FK "required"
+        NVARCHAR_64 milestone_key PK "required"
+        NVARCHAR_50 claimed_at  "required"
+    }

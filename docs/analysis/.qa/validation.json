@@ -1,0 +1,14 @@
+{
+  "design-document": {
+    "pages": 10,
+    "bytes": 356528
+  },
+  "er-diagram": {
+    "pages": 8,
+    "bytes": 272118
+  },
+  "threat-model": {
+    "pages": 10,
+    "bytes": 375762
+  }
+}

@@ -1,0 +1,26 @@
+digraph Architecture {
+graph [rankdir=TB, newrank=true, bgcolor=white, pad=0.25, nodesep=0.4, ranksep=0.5, fontname="Arial", fontsize=20, label="Current independent execution paths", labelloc=t];
+node [shape=box, style="rounded,filled", fillcolor="#F1F5F9", color="#CBD5E1", fontname="Arial", fontsize=13, margin="0.15,0.12"];
+edge [color="#60758B", fontname="Arial", fontsize=10];
+subgraph cluster_android { label="Offline Android app"; fontname="Arial"; fontsize=16; color="#B7D6E8";
+appUser [label="Shared device users", fillcolor="#DBEAFE"];
+compose [label="Compose screens\nand MainActivity"];
+vm [label="GameViewModel\nand StateFlow"];
+rules [label="Local GameRules"];
+prefs [label="Private JSON preferences", shape=cylinder];
+media [label="System photo picker and local URIs"];
+appUser -> compose -> vm;
+vm -> rules [dir=both]; vm -> prefs [label="SaveCodec"]; compose -> media;
+}
+subgraph cluster_backend { label="Independent Ktor backend"; fontname="Arial"; fontsize=16; color="#C4C8E9";
+apiClient [label="Arbitrary or future\nAPI clients", fillcolor="#EDE9FE"];
+ktor [label="Ktor routes and JWT guards"];
+repo [label="Repositories and\nbackend GameRules"];
+sql [label="SQL Server and Flyway", shape=cylinder];
+files [label="Local uploads", shape=cylinder];
+fcm [label="Legacy FCM sender"];
+stubs [label="Azure identity\nand Blob stubs", fillcolor="#FEF3C7"];
+apiClient -> ktor -> repo -> sql;
+ktor -> files; ktor -> fcm; ktor -> stubs [style=dashed,label="ENV azure"];
+}
+}

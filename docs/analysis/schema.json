@@ -1,0 +1,483 @@
+[
+  {
+    "name": "Households",
+    "columns": [
+      {
+        "name": "id",
+        "type": "NVARCHAR(36)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "name",
+        "type": "NVARCHAR(100)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "invite_code",
+        "type": "NVARCHAR(12)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "pin_salt",
+        "type": "NVARCHAR(32)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "pin_hash",
+        "type": "NVARCHAR(64)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "week_start",
+        "type": "NVARCHAR(10)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "created_at",
+        "type": "NVARCHAR(50)",
+        "nullable": false,
+        "default": ""
+      }
+    ],
+    "pk": [
+      "id"
+    ],
+    "fk": [],
+    "migration": "V1"
+  },
+  {
+    "name": "Members",
+    "columns": [
+      {
+        "name": "id",
+        "type": "NVARCHAR(36)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "household_id",
+        "type": "NVARCHAR(36)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "auth_email",
+        "type": "NVARCHAR(256)",
+        "nullable": true,
+        "default": ""
+      },
+      {
+        "name": "auth_password_hash",
+        "type": "NVARCHAR(256)",
+        "nullable": true,
+        "default": ""
+      },
+      {
+        "name": "name",
+        "type": "NVARCHAR(64)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "avatar",
+        "type": "INT",
+        "nullable": false,
+        "default": "0"
+      },
+      {
+        "name": "points",
+        "type": "INT",
+        "nullable": false,
+        "default": "0"
+      },
+      {
+        "name": "weekly_points",
+        "type": "INT",
+        "nullable": false,
+        "default": "0"
+      },
+      {
+        "name": "is_parent",
+        "type": "BIT",
+        "nullable": false,
+        "default": "0"
+      }
+    ],
+    "pk": [
+      "id"
+    ],
+    "fk": [
+      {
+        "column": "household_id",
+        "parent": "Households",
+        "parent_column": "id"
+      }
+    ],
+    "migration": "V2"
+  },
+  {
+    "name": "Creatures",
+    "columns": [
+      {
+        "name": "id",
+        "type": "NVARCHAR(36)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "owner_id",
+        "type": "NVARCHAR(36)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "element",
+        "type": "NVARCHAR(10)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "rarity",
+        "type": "NVARCHAR(12)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "xp",
+        "type": "INT",
+        "nullable": false,
+        "default": "0"
+      },
+      {
+        "name": "stage",
+        "type": "INT",
+        "nullable": false,
+        "default": "0"
+      },
+      {
+        "name": "nickname",
+        "type": "NVARCHAR(64)",
+        "nullable": false,
+        "default": "''"
+      },
+      {
+        "name": "adopted_date",
+        "type": "NVARCHAR(10)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "loved_on",
+        "type": "NVARCHAR(10)",
+        "nullable": false,
+        "default": "''"
+      },
+      {
+        "name": "is_favorite",
+        "type": "BIT",
+        "nullable": false,
+        "default": "0"
+      },
+      {
+        "name": "is_active",
+        "type": "BIT",
+        "nullable": false,
+        "default": "0"
+      }
+    ],
+    "pk": [
+      "id"
+    ],
+    "fk": [
+      {
+        "column": "owner_id",
+        "parent": "Members",
+        "parent_column": "id"
+      }
+    ],
+    "migration": "V3"
+  },
+  {
+    "name": "Chores",
+    "columns": [
+      {
+        "name": "id",
+        "type": "NVARCHAR(36)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "household_id",
+        "type": "NVARCHAR(36)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "title",
+        "type": "NVARCHAR(100)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "description",
+        "type": "NVARCHAR(500)",
+        "nullable": false,
+        "default": "''"
+      },
+      {
+        "name": "points",
+        "type": "INT",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "element",
+        "type": "NVARCHAR(10)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "schedule",
+        "type": "NVARCHAR(12)",
+        "nullable": false,
+        "default": "'DAILY'"
+      },
+      {
+        "name": "requires_approval",
+        "type": "BIT",
+        "nullable": false,
+        "default": "0"
+      },
+      {
+        "name": "archived",
+        "type": "BIT",
+        "nullable": false,
+        "default": "0"
+      },
+      {
+        "name": "steps",
+        "type": "NVARCHAR(MAX)",
+        "nullable": false,
+        "default": "'[]'"
+      }
+    ],
+    "pk": [
+      "id"
+    ],
+    "fk": [
+      {
+        "column": "household_id",
+        "parent": "Households",
+        "parent_column": "id"
+      }
+    ],
+    "migration": "V4"
+  },
+  {
+    "name": "ChoreAssignments",
+    "columns": [
+      {
+        "name": "chore_id",
+        "type": "NVARCHAR(36)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "member_id",
+        "type": "NVARCHAR(36)",
+        "nullable": false,
+        "default": ""
+      }
+    ],
+    "pk": [
+      "chore_id",
+      "member_id"
+    ],
+    "fk": [
+      {
+        "column": "chore_id",
+        "parent": "Chores",
+        "parent_column": "id"
+      },
+      {
+        "column": "member_id",
+        "parent": "Members",
+        "parent_column": "id"
+      }
+    ],
+    "migration": "V4"
+  },
+  {
+    "name": "Completions",
+    "columns": [
+      {
+        "name": "id",
+        "type": "NVARCHAR(36)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "chore_id",
+        "type": "NVARCHAR(36)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "member_id",
+        "type": "NVARCHAR(36)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "creature_id",
+        "type": "NVARCHAR(36)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "date",
+        "type": "NVARCHAR(10)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "title",
+        "type": "NVARCHAR(100)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "points",
+        "type": "INT",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "xp",
+        "type": "INT",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "status",
+        "type": "NVARCHAR(10)",
+        "nullable": false,
+        "default": "'PENDING'"
+      },
+      {
+        "name": "photo_url",
+        "type": "NVARCHAR(500)",
+        "nullable": false,
+        "default": "''"
+      }
+    ],
+    "pk": [
+      "id"
+    ],
+    "fk": [
+      {
+        "column": "chore_id",
+        "parent": "Chores",
+        "parent_column": "id"
+      },
+      {
+        "column": "member_id",
+        "parent": "Members",
+        "parent_column": "id"
+      },
+      {
+        "column": "creature_id",
+        "parent": "Creatures",
+        "parent_column": "id"
+      }
+    ],
+    "migration": "V5"
+  },
+  {
+    "name": "DeviceTokens",
+    "columns": [
+      {
+        "name": "id",
+        "type": "NVARCHAR(36)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "member_id",
+        "type": "NVARCHAR(36)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "fcm_token",
+        "type": "NVARCHAR(256)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "platform",
+        "type": "NVARCHAR(10)",
+        "nullable": false,
+        "default": "'ANDROID'"
+      },
+      {
+        "name": "updated_at",
+        "type": "NVARCHAR(50)",
+        "nullable": false,
+        "default": ""
+      }
+    ],
+    "pk": [
+      "id"
+    ],
+    "fk": [
+      {
+        "column": "member_id",
+        "parent": "Members",
+        "parent_column": "id"
+      }
+    ],
+    "migration": "V6"
+  },
+  {
+    "name": "ClaimedMilestones",
+    "columns": [
+      {
+        "name": "member_id",
+        "type": "NVARCHAR(36)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "milestone_key",
+        "type": "NVARCHAR(64)",
+        "nullable": false,
+        "default": ""
+      },
+      {
+        "name": "claimed_at",
+        "type": "NVARCHAR(50)",
+        "nullable": false,
+        "default": ""
+      }
+    ],
+    "pk": [
+      "member_id",
+      "milestone_key"
+    ],
+    "fk": [
+      {
+        "column": "member_id",
+        "parent": "Members",
+        "parent_column": "id"
+      }
+    ],
+    "migration": "V7"
+  }
+]

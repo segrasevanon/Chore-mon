@@ -1,0 +1,23 @@
+digraph ER {
+graph [rankdir=LR, bgcolor="white", pad=0.35, nodesep=0.55, ranksep=0.85, splines=ortho, fontname="Arial", label="Choreemon backend physical schema", labelloc=t, fontsize=22];
+node [shape=plain, fontname="Arial", fontsize=12];
+edge [fontname="Arial", fontsize=10, color="#60758B", arrowsize=0.8, arrowhead=odotcrow, arrowtail=teetee, dir=both];
+Households [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#CBD5E1"><TR><TD COLSPAN="2" BGCOLOR="#183B56"><FONT COLOR="white"><B>Households</B></FONT></TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="white">PK</TD><TD PORT="id" ALIGN="LEFT" BGCOLOR="white">id</TD></TR></TABLE>>];
+Members [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#CBD5E1"><TR><TD COLSPAN="2" BGCOLOR="#183B56"><FONT COLOR="white"><B>Members</B></FONT></TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="white">PK</TD><TD PORT="id" ALIGN="LEFT" BGCOLOR="white">id</TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="#F1F5F9">FK</TD><TD PORT="household_id" ALIGN="LEFT" BGCOLOR="#F1F5F9">household_id</TD></TR></TABLE>>];
+Creatures [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#CBD5E1"><TR><TD COLSPAN="2" BGCOLOR="#183B56"><FONT COLOR="white"><B>Creatures</B></FONT></TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="white">PK</TD><TD PORT="id" ALIGN="LEFT" BGCOLOR="white">id</TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="#F1F5F9">FK</TD><TD PORT="owner_id" ALIGN="LEFT" BGCOLOR="#F1F5F9">owner_id</TD></TR></TABLE>>];
+Chores [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#CBD5E1"><TR><TD COLSPAN="2" BGCOLOR="#183B56"><FONT COLOR="white"><B>Chores</B></FONT></TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="white">PK</TD><TD PORT="id" ALIGN="LEFT" BGCOLOR="white">id</TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="#F1F5F9">FK</TD><TD PORT="household_id" ALIGN="LEFT" BGCOLOR="#F1F5F9">household_id</TD></TR></TABLE>>];
+ChoreAssignments [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#CBD5E1"><TR><TD COLSPAN="2" BGCOLOR="#183B56"><FONT COLOR="white"><B>ChoreAssignments</B></FONT></TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="white">PK FK</TD><TD PORT="chore_id" ALIGN="LEFT" BGCOLOR="white">chore_id</TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="#F1F5F9">PK FK</TD><TD PORT="member_id" ALIGN="LEFT" BGCOLOR="#F1F5F9">member_id</TD></TR></TABLE>>];
+Completions [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#CBD5E1"><TR><TD COLSPAN="2" BGCOLOR="#183B56"><FONT COLOR="white"><B>Completions</B></FONT></TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="white">PK</TD><TD PORT="id" ALIGN="LEFT" BGCOLOR="white">id</TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="#F1F5F9">FK</TD><TD PORT="chore_id" ALIGN="LEFT" BGCOLOR="#F1F5F9">chore_id</TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="white">FK</TD><TD PORT="member_id" ALIGN="LEFT" BGCOLOR="white">member_id</TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="#F1F5F9">FK</TD><TD PORT="creature_id" ALIGN="LEFT" BGCOLOR="#F1F5F9">creature_id</TD></TR></TABLE>>];
+DeviceTokens [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#CBD5E1"><TR><TD COLSPAN="2" BGCOLOR="#183B56"><FONT COLOR="white"><B>DeviceTokens</B></FONT></TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="white">PK</TD><TD PORT="id" ALIGN="LEFT" BGCOLOR="white">id</TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="#F1F5F9">FK</TD><TD PORT="member_id" ALIGN="LEFT" BGCOLOR="#F1F5F9">member_id</TD></TR></TABLE>>];
+ClaimedMilestones [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#CBD5E1"><TR><TD COLSPAN="2" BGCOLOR="#183B56"><FONT COLOR="white"><B>ClaimedMilestones</B></FONT></TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="white">PK FK</TD><TD PORT="member_id" ALIGN="LEFT" BGCOLOR="white">member_id</TD></TR><TR><TD ALIGN="LEFT" BGCOLOR="#F1F5F9">PK</TD><TD PORT="milestone_key" ALIGN="LEFT" BGCOLOR="#F1F5F9">milestone_key</TD></TR></TABLE>>];
+Households -> Members;
+Members -> Creatures;
+Households -> Chores;
+Chores -> ChoreAssignments;
+Members -> ChoreAssignments;
+Chores -> Completions;
+Members -> Completions;
+Creatures -> Completions;
+Members -> DeviceTokens;
+Members -> ClaimedMilestones;
+}

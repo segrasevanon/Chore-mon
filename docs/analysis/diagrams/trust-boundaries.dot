@@ -1,0 +1,30 @@
+digraph Trust {
+graph [rankdir=TB, bgcolor=white, pad=0.3, nodesep=0.45, ranksep=0.45, fontname="Arial", fontsize=20, label="Trust boundaries and sensitive data flows", labelloc=t];
+node [shape=box, style="rounded,filled", fillcolor="#F1F5F9", color="#CBD5E1", fontname="Arial", fontsize=12, margin="0.16,0.1"];
+edge [fontname="Arial", fontsize=10, color="#60758B"];
+subgraph cluster_device {label="TB1 Shared device and parent UI"; color="#93C5FD"; fontname="Arial";
+localUser [label="Child or adult on device"];
+ui [label="Android UI and PIN gate"];
+localUser -> ui;
+subgraph cluster_store {label="TB2 App storage and media"; color="#BFDBFE"; fontname="Arial";
+save [label="Private game JSON and photo URIs",shape=cylinder];}
+ui -> save;
+}
+client [label="External or authenticated API actor",fillcolor="#EDE9FE"];
+subgraph cluster_api {label="TB3 Network to Ktor"; color="#C4B5FD"; fontname="Arial";
+api [label="JWT checks and route policy"];
+cmd [label="Repositories and game commands"];
+api -> cmd;
+}
+client -> api [label="Credentials, JWT, IDs, file bytes"];
+subgraph cluster_persist {label="TB4 Persistence"; color="#94A3B8"; fontname="Arial";
+db [label="SQL Server",shape=cylinder]; files [label="Uploads",shape=cylinder];}
+cmd -> db [label="Household and reward data"]; api -> files [label="Photo write or read"];
+subgraph cluster_cloud {label="TB5 Azure adapters"; color="#FBBF24"; fontname="Arial";
+azure [label="Unsigned verifier and URL-only storage stubs",fillcolor="#FEF3C7"];}
+api -> azure [style=dashed,label="Selected in Azure mode"];
+subgraph cluster_egress {label="TB6 Messaging and operations"; color="#FCA5A5"; fontname="Arial";
+push [label="FCM tokens and notification data"];
+logs [label="Request and notification logs"];}
+api -> push; api -> logs;
+}
