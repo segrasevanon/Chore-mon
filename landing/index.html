@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Choreémon — Real Chores. Little Wonders. (Download Android APK)</title>
+  <meta name="description" content="A native Kotlin Android game that turns everyday household chores into little adventures. Complete quests, collect points, hatch adorable companions, and watch them evolve!">
+  <meta name="keywords" content="Choreemon, Android APK, Chore game, kids chore tracker, family chores, gamified habits, Jetpack Compose">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://choreemon.vercel.app/">
+  <meta property="og:title" content="Choreémon — Real Chores. Little Wonders.">
+  <meta property="og:description" content="Turn everyday chores into little adventures. Complete quests, collect points, and hatch adorable buddies that grow with you!">
+  <meta property="og:image" content="assets/screenshots/01-welcome.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Choreémon — Real Chores. Little Wonders.">
+  <meta name="twitter:description" content="Turn everyday chores into little adventures. Complete quests, collect points, and hatch adorable buddies that grow with you!">
+  <meta name="twitter:image" content="assets/screenshots/01-welcome.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="theme-color" content="#2089F5">
+
+  <!-- Google Fonts: Nunito -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Floating Ambient Particles Background -->
+  <div class="bg-gradient-mesh" aria-hidden="true">
+    <div class="mesh-blob blob-1"></div>
+    <div class="mesh-blob blob-2"></div>
+    <div class="mesh-blob blob-3"></div>
+  </div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- Navigation Bar -->
+  <header class="site-header">
+    <div class="header-inner container">
+      <a href="#" class="brand-link" aria-label="Choreémon Home">
+        <span class="brand-name">Choreémon</span>
+        <img src="assets/creatures/egg.webp" alt="Choreémon Egg" class="brand-egg" width="36" height="36">
+      </a>
+
+      <nav class="nav-links" id="nav-menu">
+        <a href="#how-it-works" class="nav-item">How It Works</a>
+        <a href="#hatchery" class="nav-item">The Hatchery</a>
+        <a href="#companions" class="nav-item">Companions</a>
+        <a href="#app-tour" class="nav-item">Screenshots</a>
+        <a href="#grown-ups" class="nav-item">Grown-ups</a>
+        <a href="#faq" class="nav-item">FAQ</a>
+      </nav>
+
+      <div class="header-actions">
+        <button id="sound-toggle" class="btn-icon" aria-label="Toggle Sound Effects" title="Toggle Sound">
+          <span class="sound-icon">🔊</span>
+        </button>
+        <a href="#download" class="btn btn-primary btn-sm btn-bounce">
+          <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Download APK</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section container">
+      <div class="hero-content">
+        <div class="pill pill-purple hero-pill">
+          <span class="sparkle-icon">✨</span>
+          <span>REAL CHORES. LITTLE WONDERS.</span>
+        </div>
+
+        <h1 class="hero-title">
+          Little chores.<br>
+          <span class="gradient-text">Big adventures.</span>
+        </h1>
+
+        <p class="hero-lead">
+          Make home a little brighter. Raise a loyal friend who grows from a tiny bubble into a household legend as you complete everyday chores.
+        </p>
+
+        <div class="hero-cta-group">
+          <button id="hero-download-btn" class="btn btn-gold btn-lg btn-bounce">
+            <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <div class="btn-text-stacked">
+              <span class="btn-main-text">Download Choreémon APK</span>
+              <span class="btn-sub-text">v1.0.0 • 51.5 MB • Android 8.0+</span>
+            </div>
+          </button>
+
+          <a href="#hatchery" class="btn btn-secondary btn-lg">
+            <span>🥚 Tap to Hatch a Buddy</span>
+          </a>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="trust-row">
+          <div class="trust-item">
+            <span class="trust-icon">🔒</span>
+            <span>100% Offline &amp; Private</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">🚫</span>
+            <span>No Ads or Microtransactions</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">🛡️</span>
+            <span>Parent PIN Protected</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Visual Interactive Mockup -->
+      <div class="hero-visual-wrapper">
+        <div class="hero-room-card">
+          <img src="assets/creatures/room.webp" alt="Cozy Illustrated Room" class="room-bg" loading="eager" width="1200" height="800">
+          
+          <!-- Floating Interactive Pet: Sudsy -->
+          <div class="pet-interactive-container" id="hero-pet" title="Click to pet Sudsy!">
+            <img src="assets/creatures/sudsy.webp" alt="Sudsy the Water Buddy" class="pet-img pet-floating" id="hero-pet-img" width="640" height="640">
+            <div class="heart-burst" id="hero-heart-burst">💖</div>
+            <div class="xp-bubble" id="hero-xp-bubble">+12 XP!</div>
+          </div>
+
+          <!-- Egg in the corner -->
+          <div class="egg-interactive-container" id="hero-egg" title="Wobbly Egg">
+            <img src="assets/creatures/egg.webp" alt="Mystery Egg" class="egg-img egg-wobble" width="640" height="640">
+          </div>
+
+          <!-- Pet Hint Pill -->
+          <div class="pet-hint-pill">
+            <span>👆 Tap Sudsy to give daily love!</span>
+          </div>
+        </div>
+
+        <!-- Quick 3-Step Feature Banner -->
+        <div class="game-card quick-steps-card">
+          <div class="step-item">
+            <div class="step-circle bg-blue-tint">
+              <span class="step-icon">📋</span>
+            </div>
+            <span class="step-label">Do a chore</span>
+          </div>
+          <div class="step-divider">➔</div>
+          <div class="step-item">
+            <div class="step-circle bg-gold-tint">
+              <span class="step-icon">⭐</span>
+            </div>
+            <span class="step-label">Earn points</span>
+          </div>
+          <div class="step-divider">➔</div>
+          <div class="step-item">
+            <div class="step-circle bg-purple-tint">
+              <span class="step-icon">🐾</span>
+            </div>
+            <span class="step-label">Grow a buddy</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE HATCHERY MINI-GAME SECTION -->
+    <section class="hatchery-section" id="hatchery">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="pill pill-gold section-pill">✨ WEB PREVIEW EXPERIENCE</div>
+          <h2 class="section-title">The Magical Hatchery</h2>
+          <p class="section-subtitle">Experience the magic of Choreémon right here! Select an egg and give it three gentle taps to discover who's inside.</p>
+        </div>
+
+        <div class="hatchery-stage">
+          <!-- Egg Tier Selection -->
+          <div class="egg-tiers-selector">
+            <button class="egg-tier-btn active" data-tier="classic">
+              <span class="tier-badge">Classic Egg</span>
+              <span class="tier-cost">50 Points</span>
+              <span class="tier-odds">60% Common • 35% Rare • 5% Leg.</span>
+            </button>
+            <button class="egg-tier-btn" data-tier="enchanted">
+              <span class="tier-badge">Enchanted Egg</span>
+              <span class="tier-cost">100 Points</span>
+              <span class="tier-odds">25% Common • 65% Rare • 10% Leg.</span>
+            </button>
+            <button class="egg-tier-btn" data-tier="aurora">
+              <span class="tier-badge">Aurora Egg</span>
+              <span class="tier-cost">200 Points</span>
+              <span class="tier-odds">10% Common • 60% Rare • 30% Leg.</span>
+            </button>
+          </div>
+
+          <!-- The Hatching Incubator Area -->
+          <div class="incubator-card game-card">
+            <div class="incubator-glow"></div>
+            
+            <div class="egg-hatch-box" id="egg-hatch-trigger">
+              <img src="assets/creatures/egg.webp" alt="Incubator Egg" id="incubator-egg-img" class="incubator-egg" width="300" height="300">
+              <div class="crack-overlay" id="crack-overlay"></div>
+              
+              <!-- Result Creature (Hidden initially) -->
+              <div class="hatched-creature-view hidden" id="hatched-creature-view">
+                <div class="rarity-sunburst" id="hatched-sunburst"></div>
+                <img src="assets/creatures/sudsy.webp" alt="Hatched Creature" id="hatched-img" class="hatched-sprite" width="300" height="300">
+                <div class="hatched-info">
+                  <div class="hatched-pill" id="hatched-element-pill">💧 Water • Common</div>
+                  <h3 class="hatched-name" id="hatched-name">Sudsy</h3>
+                  <p class="hatched-desc" id="hatched-desc">A bubbly little buddy who turns a pile of dishes into a reason to smile.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hatching Instructions / Tap Progress -->
+            <div class="hatch-progress-wrapper" id="hatch-controls">
+              <div class="taps-indicator">
+                <span class="tap-dot active" id="dot-1"></span>
+                <span class="tap-dot" id="dot-2"></span>
+                <span class="tap-dot" id="dot-3"></span>
+              </div>
+              <p class="hatch-prompt" id="hatch-prompt-text">Tap the egg 3 times to crack it!</p>
+              <button id="hatch-again-btn" class="btn btn-secondary btn-sm hidden">Hatch Another Egg 🔄</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPANIONS & EVOLUTION SHOWCASE -->
+    <section class="companions-section" id="companions">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="pill pill-blue section-pill">🐾 FOUR CREATURE FAMILIES</div>
+          <h2 class="section-title">Meet Your Household Buddies</h2>
+          <p class="section-subtitle">From tiny starter friends to magnificent legendary champions. Complete chores and shower them with love to unlock their evolutions.</p>
+        </div>
+
+        <!-- Family Filter Tabs -->
+        <div class="family-tabs" role="tablist">
+          <button class="family-tab active" data-element="water" role="tab" aria-selected="true">
+            <span class="tab-emoji">💧</span>
+            <span>Water (Dishes)</span>
+          </button>
+          <button class="family-tab" data-element="earth" role="tab" aria-selected="false">
+            <span class="tab-emoji">🧦</span>
+            <span>Earth (Laundry)</span>
+          </button>
+          <button class="family-tab" data-element="air" role="tab" aria-selected="false">
+            <span class="tab-emoji">💨</span>
+            <span>Air (Tidying &amp; Vacuum)</span>
+          </button>
+          <button class="family-tab" data-element="poison" data-element-label="Poison / Recycling" role="tab" aria-selected="false">
+            <span class="tab-emoji">♻️</span>
+            <span>Recycling (Trash)</span>
+          </button>
+        </div>
+
+        <!-- Companion Stage Showcase Card -->
+        <div class="companion-showcase game-card" id="companion-card">
+          <div class="showcase-visual-col">
+            <div class="creature-stage-badge" id="creature-stage-badge">Stage 1 • Baby</div>
+            
+            <div class="creature-display-frame">
+              <div class="creature-backdrop-glow" id="creature-glow"></div>
+              <img src="assets/creatures/sudsy.webp" alt="Companion Sprite" id="creature-showcase-img" class="creature-hero-img pet-floating" width="400" height="400">
+            </div>
+
+            <!-- Mood Toggle -->
+            <div class="mood-toggle-container">
+              <span class="mood-label">Current Mood:</span>
+              <button class="mood-btn active" id="mood-happy-btn" title="Happy companion (+20% XP bonus!)">😊 Happy</button>
+              <button class="mood-btn" id="mood-sad-btn" title="Sad starter before doing chores">🥺 Neglected</button>
+            </div>
+          </div>
+
+          <div class="showcase-details-col">
+            <div class="creature-meta-row">
+              <span class="pill pill-blue" id="creature-element-pill">💧 Water Element</span>
+              <span class="pill pill-purple" id="creature-rarity-pill">Common</span>
+            </div>
+
+            <h3 class="creature-showcase-name" id="creature-title">Sudsy</h3>
+            <p class="creature-showcase-desc" id="creature-description">
+              A bubbly little buddy who turns a pile of dishes into a reason to smile.
+            </p>
+
+            <!-- Evolution Stepper Buttons -->
+            <div class="evolution-stepper">
+              <div class="evolution-label">Evolution Stage:</div>
+              <div class="stepper-buttons">
+                <button class="stepper-btn active" data-stage="0" id="stage-btn-0">
+                  <span class="stepper-num">1</span>
+                  <span class="stepper-name" id="stage-name-0">Sudsy</span>
+                </button>
+                <div class="stepper-connector"></div>
+                <button class="stepper-btn" data-stage="1" id="stage-btn-1">
+                  <span class="stepper-num">2</span>
+                  <span class="stepper-name" id="stage-name-1">Bubblescale</span>
+                </button>
+                <div class="stepper-connector"></div>
+                <button class="stepper-btn" data-stage="2" id="stage-btn-2">
+                  <span class="stepper-num">3</span>
+                  <span class="stepper-name" id="stage-name-2">Dishdrake</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- In-Game Stats Preview -->
+            <div class="creature-stats-box">
+              <div class="stat-row">
+                <span class="stat-label">Next Evolution:</span>
+                <span class="stat-value" id="creature-next-xp">360 XP needed</span>
+              </div>
+              <div class="stat-bar-outer">
+                <div class="stat-bar-fill" id="creature-xp-bar" style="width: 45%;"></div>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Special Trait:</span>
+                <span class="stat-value" id="creature-trait">Bubbles burst into XP when sinks are cleared!</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS: 4 CORE PILLARS -->
+    <section class="how-it-works-section" id="how-it-works">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="pill pill-green section-pill">🎮 SIMPLE &amp; DELIGHTFUL</div>
+          <h2 class="section-title">How Everyday Chores Become Quests</h2>
+          <p class="section-subtitle">Designed for kids to stay engaged and for grown-ups to stay in effortless control.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card game-card">
+            <div class="feature-icon-box bg-blue-tint">
+              <span>🧹</span>
+            </div>
+            <h3 class="feature-card-title">1. Real Quests &amp; Checklists</h3>
+            <p class="feature-card-desc">
+              Daily, weekday, weekend, and one-time chores. Each quest includes clear 1–8 step checklists so kids always know what "done" looks like.
+            </p>
+            <div class="feature-card-tag">Wash dishes • Sort laundry • Vacuum • Recycle</div>
+          </div>
+
+          <div class="feature-card game-card">
+            <div class="feature-icon-box bg-gold-tint">
+              <span>📸</span>
+            </div>
+            <h3 class="feature-card-title">2. Optional Photo Proof</h3>
+            <p class="feature-card-desc">
+              Kids can snap a quick before-and-after picture of their clean bedroom or folded laundry using Android's native private photo picker.
+            </p>
+            <div class="feature-card-tag">Stays 100% on device • No cloud uploads</div>
+          </div>
+
+          <div class="feature-card game-card">
+            <div class="feature-icon-box bg-purple-tint">
+              <span>🥚</span>
+            </div>
+            <h3 class="feature-card-title">3. Hatch, Pet &amp; Evolve</h3>
+            <p class="feature-card-desc">
+              Earn coins and XP to hatch eggs in the Hatchery. Choose active companions, pet them daily, maintain chore streaks, and watch them evolve!
+            </p>
+            <div class="feature-card-tag">12 Unique Evolutions • Dynamic Moods</div>
+          </div>
+
+          <div class="feature-card game-card">
+            <div class="feature-icon-box bg-green-tint">
+              <span>🏆</span>
+            </div>
+            <h3 class="feature-card-title">4. Family Leaderboard</h3>
+            <p class="feature-card-desc">
+              Friendly household rankings reset every Monday. Spending coins in the Hatchery never hurts your weekly leaderboard score.
+            </p>
+            <div class="feature-card-tag">Up to 8 family adventurers on 1 phone</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REAL APP SCREENSHOTS / TOUR -->
+    <section class="tour-section" id="app-tour">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="pill pill-pink section-pill">📱 APP PREVIEW</div>
+          <h2 class="section-title">See Choreémon in Action</h2>
+          <p class="section-subtitle">Clean Jetpack Compose native Android design with responsive animations and joyful sound effects.</p>
+        </div>
+
+        <!-- Screenshot Gallery Slider -->
+        <div class="screenshot-showcase">
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <img src="assets/screenshots/01-welcome.webp" alt="Choreémon Screenshot" id="tour-screen-img" class="tour-img" width="640" height="1386">
+            </div>
+          </div>
+
+          <div class="tour-nav-list">
+            <button class="tour-nav-item active" data-img="assets/screenshots/01-welcome.webp">
+              <span class="tour-item-num">01</span>
+              <div class="tour-item-text">
+                <strong>Welcome &amp; Setup</strong>
+                <span>Instant household onboarding or one-tap demo</span>
+              </div>
+            </button>
+            <button class="tour-nav-item" data-img="assets/screenshots/02-home.webp">
+              <span class="tour-item-num">02</span>
+              <div class="tour-item-text">
+                <strong>Adventurer Dashboard</strong>
+                <span>Active companion, coins, XP, and today's quests</span>
+              </div>
+            </button>
+            <button class="tour-nav-item" data-img="assets/screenshots/03-chore.webp">
+              <span class="tour-item-num">03</span>
+              <div class="tour-item-text">
+                <strong>Quest Detail &amp; Checklist</strong>
+                <span>Step-by-step chore guidance with photo proof</span>
+              </div>
+            </button>
+            <button class="tour-nav-item" data-img="assets/screenshots/04-hatchery.webp">
+              <span class="tour-item-num">04</span>
+              <div class="tour-item-text">
+                <strong>The Hatchery</strong>
+                <span>Three-tap interactive egg cracking reveal</span>
+              </div>
+            </button>
+            <button class="tour-nav-item" data-img="assets/screenshots/05-buddies.webp">
+              <span class="tour-item-num">05</span>
+              <div class="tour-item-text">
+                <strong>Creature Journal</strong>
+                <span>Nicknames, favorites, levels, and evolutions</span>
+              </div>
+            </button>
+            <button class="tour-nav-item" data-img="assets/screenshots/06-heroes.webp">
+              <span class="tour-item-num">06</span>
+              <div class="tour-item-text">
+                <strong>Household Heroes</strong>
+                <span>Weekly rankings, streak counts, and milestones</span>
+              </div>
+            </button>
+            <button class="tour-nav-item" data-img="assets/screenshots/07-parent.webp">
+              <span class="tour-item-num">07</span>
+              <div class="tour-item-text">
+                <strong>Grown-up Corner</strong>
+                <span>PIN-protected quest creator and approval queue</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GROWN-UP CORNER & PRIVACY SECTION -->
+    <section class="grownups-section" id="grown-ups">
+      <div class="container">
+        <div class="grownups-card game-card">
+          <div class="grownups-content">
+            <div class="pill pill-purple">👨‍👩‍👧‍👦 BUILT FOR FAMILIES</div>
+            <h2 class="grownups-title">The Grown-up Corner</h2>
+            <p class="grownups-lead">
+              Parenting is hard enough. Choreémon gives parents peace of mind with robust, zero-friction controls:
+            </p>
+
+            <ul class="grownups-list">
+              <li>
+                <span class="check-bullet">✓</span>
+                <div>
+                  <strong>PIN Protection (Demo PIN: 2468)</strong>
+                  <p>Parent dashboard auto-locks when app backgrounded to prevent accidental edits.</p>
+                </div>
+              </li>
+              <li>
+                <span class="check-bullet">✓</span>
+                <div>
+                  <strong>Approval Queue</strong>
+                  <p>Choose which chores require grown-up verification before rewards and XP are granted.</p>
+                </div>
+              </li>
+              <li>
+                <span class="check-bullet">✓</span>
+                <div>
+                  <strong>Local Privacy First</strong>
+                  <p>No account required, no passwords stored in the cloud, no third-party trackers, no analytics.</p>
+                </div>
+              </li>
+              <li>
+                <span class="check-bullet">✓</span>
+                <div>
+                  <strong>Multiple Profiles on One Device</strong>
+                  <p>Switch between adventurers in two taps. Each child has their own companion, wallet, and streak.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="grownups-visual">
+            <div class="pin-mockup-card">
+              <div class="pin-header">
+                <span class="pin-lock-icon">🔐</span>
+                <span class="pin-title">Parent PIN Verification</span>
+              </div>
+              <div class="pin-dots">
+                <span class="pin-dot filled">•</span>
+                <span class="pin-dot filled">•</span>
+                <span class="pin-dot filled">•</span>
+                <span class="pin-dot filled">•</span>
+              </div>
+              <p class="pin-hint">Try Demo PIN: <strong>2468</strong></p>
+              <div class="demo-badge">Chen Family Demo Included</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOWNLOAD & SIDELOADING HUB -->
+    <section class="download-section" id="download">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="pill pill-gold section-pill">📥 READY TO PLAY</div>
+          <h2 class="section-title">Get Choreémon for Android</h2>
+          <p class="section-subtitle">Download the APK directly to your phone or tablet. Fast, free, and safe.</p>
+        </div>
+
+        <div class="download-grid">
+          <!-- Main Download Box -->
+          <div class="game-card download-main-card">
+            <div class="download-card-badge">Latest Stable Release</div>
+            <div class="download-apk-meta">
+              <div class="app-avatar-box">
+                <img src="assets/creatures/egg.webp" alt="App Icon" width="64" height="64">
+              </div>
+              <div>
+                <h3 class="download-app-name">Choreémon.apk</h3>
+                <p class="download-version-line">Version 1.0.0 • Size: 51.5 MB • Architecture: Universal APK</p>
+              </div>
+            </div>
+
+            <div class="download-button-row">
+              <a href="downloads/Choreemon.apk" download="Choreemon.apk" class="btn btn-gold btn-xl btn-bounce" id="main-apk-download-btn">
+                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Direct Download APK</span>
+              </a>
+
+              <a href="https://github.com/segrasevanon/Chore-mon/raw/main/Choreemon.apk" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-xl">
+                <span>GitHub Mirror</span>
+              </a>
+            </div>
+
+            <!-- SHA-256 Checksum Card -->
+            <div class="checksum-box">
+              <div class="checksum-header">
+                <span class="checksum-label">SHA-256 Checksum</span>
+                <button class="btn-copy" id="copy-hash-btn" title="Copy SHA-256 hash">
+                  <span id="copy-btn-text">Copy Hash</span>
+                </button>
+              </div>
+              <code class="checksum-code" id="sha-hash">677D4060A931D3E49A7BE3D1640CA2921354DE8214DC151A57E3A08D1B65815E</code>
+            </div>
+
+            <div class="system-specs-list">
+              <div class="spec-item"><strong>OS Requirement:</strong> Android 8.0+ (Oreo, API 26+)</div>
+              <div class="spec-item"><strong>Permissions:</strong> None required (Uses system photo picker)</div>
+              <div class="spec-item"><strong>Developer:</strong> Choreémon Team</div>
+            </div>
+          </div>
+
+          <!-- Phone QR Code Card -->
+          <div class="game-card qr-download-card">
+            <h3 class="qr-card-title">📱 Scan with Android</h3>
+            <p class="qr-card-desc">Visiting on your computer? Point your phone camera at this QR code to download the APK straight to your phone!</p>
+            
+            <div class="qr-canvas-box" id="qr-container">
+              <!-- Dynamically generated clean SVG QR code -->
+            </div>
+            
+            <span class="qr-scan-hint">Auto-directs to Choreemon.apk</span>
+          </div>
+        </div>
+
+        <!-- 3-Step Sideloading Guide -->
+        <div class="install-guide-box">
+          <h3 class="guide-title">How to Install on Android in 3 Simple Steps</h3>
+          <div class="guide-steps-grid">
+            <div class="guide-step-card">
+              <div class="guide-step-num">1</div>
+              <h4>Download the APK</h4>
+              <p>Tap the download button above. If Chrome or Samsung Internet shows <em>"File might be harmful"</em>, tap <strong>Download anyway</strong>.</p>
+            </div>
+            <div class="guide-step-card">
+              <div class="guide-step-num">2</div>
+              <h4>Open Downloads</h4>
+              <p>Pull down your notification bar or open your device's <strong>Files / Downloads</strong> app, then tap <strong>Choreemon.apk</strong>.</p>
+            </div>
+            <div class="guide-step-card">
+              <div class="guide-step-num">3</div>
+              <h4>Allow &amp; Install</h4>
+              <p>If prompted with <em>"Install unknown apps"</em>, toggle <strong>Allow from this source</strong> once and tap <strong>Install</strong>. Done!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="pill pill-purple section-pill">❓ QUESTIONS &amp; ANSWERS</div>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-accordion">
+          <details class="faq-item game-card" open>
+            <summary class="faq-question">Why does Android warn that the file might be harmful?</summary>
+            <div class="faq-answer">
+              <p>Android displays this standard warning whenever you download an APK directly outside of the Google Play Store (known as sideloading). Choreémon is completely open-source, contains zero trackers, no ads, and no background services. You can verify the file integrity against the SHA-256 hash provided above.</p>
+            </div>
+          </details>
+
+          <details class="faq-item game-card">
+            <summary class="faq-question">Does Choreémon require internet access?</summary>
+            <div class="faq-answer">
+              <p>No! The Android app is 100% offline-first. All creature data, points, and family members are saved securely in local storage on your device. It runs smoothly on airplanes, road trips, and with Wi-Fi turned off.</p>
+            </div>
+          </details>
+
+          <details class="faq-item game-card">
+            <summary class="faq-question">What is the Demo Parent PIN?</summary>
+            <div class="faq-answer">
+              <p>When you launch the app and tap "Start playing", you explore the preloaded Chen family demo. The demo parent PIN is <strong>2468</strong>. You can also tap "Create our household" on the welcome screen to set your own family name and custom 4-digit PIN.</p>
+            </div>
+          </details>
+
+          <details class="faq-item game-card">
+            <summary class="faq-question">Can I have multiple kids on one device?</summary>
+            <div class="faq-answer">
+              <p>Yes! Choreémon supports up to 8 family members on a single phone or tablet. Each adventurer has their own wallet, creature companion, streak counter, and chore history. Switch profiles anytime from the top greeting.</p>
+            </div>
+          </details>
+
+          <details class="faq-item game-card">
+            <summary class="faq-question">What Android devices are supported?</summary>
+            <div class="faq-answer">
+              <p>Any Android phone or tablet running Android 8.0 (Oreo, API level 26) or newer. Built with Jetpack Compose for buttery-smooth performance.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand-col">
+        <a href="#" class="brand-link">
+          <span class="brand-name">Choreémon</span>
+          <img src="assets/creatures/egg.webp" alt="Choreémon Egg" class="brand-egg" width="30" height="30">
+        </a>
+        <p class="footer-tagline">Real chores. Little wonders. Turning household routines into bonding adventures.</p>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Navigation</h4>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#hatchery">The Hatchery</a>
+        <a href="#companions">Companions</a>
+        <a href="#download">Download APK</a>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Source &amp; Safety</h4>
+        <a href="https://github.com/segrasevanon/Chore-mon" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+        <a href="#faq">Parent Security</a>
+        <a href="#download">SHA-256 Hash</a>
+      </div>
+    </div>
+    
+    <div class="footer-bottom container">
+      <p>© 2026 Choreémon. Open source under MIT / Apache license. Made with 💛 for happy households.</p>
+    </div>
+  </footer>
+
+  <!-- DOWNLOAD MODAL / TOAST NOTIFICATION -->
+  <div class="modal-backdrop hidden" id="download-modal">
+    <div class="modal-card game-card">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close Modal">&times;</button>
+      <div class="modal-egg-glow">
+        <img src="assets/creatures/egg.webp" alt="Egg" width="80" height="80" class="egg-wobble">
+      </div>
+      <h3 class="modal-title">Downloading Choreémon.apk</h3>
+      <p class="modal-desc">Your download should begin automatically. If not, click below:</p>
+      
+      <div class="modal-actions">
+        <a href="downloads/Choreemon.apk" download="Choreemon.apk" class="btn btn-gold btn-sm">Direct Download Link</a>
+        <a href="https://github.com/segrasevanon/Chore-mon/raw/main/Choreemon.apk" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">GitHub Mirror</a>
+      </div>
+
+      <div class="modal-install-steps">
+        <div class="modal-step">
+          <span class="step-num-bubble">1</span>
+          <span>Tap <strong>Download anyway</strong> if prompted</span>
+        </div>
+        <div class="modal-step">
+          <span class="step-num-bubble">2</span>
+          <span>Open <strong>Choreemon.apk</strong> in notification/downloads</span>
+        </div>
+        <div class="modal-step">
+          <span class="step-num-bubble">3</span>
+          <span>Tap <strong>Install</strong> &amp; start adventuring!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
+
