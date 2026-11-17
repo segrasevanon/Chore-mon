@@ -702,7 +702,7 @@
       buffer.put(0x11, 8);
     }
 
-    const offset = 0;
+    let offset = 0;
     const dataArray = new Array(rsBlocks.length);
     const ecArray = new Array(rsBlocks.length);
     for (let r = 0; r < rsBlocks.length; r++) {
@@ -712,6 +712,7 @@
       for (let i = 0; i < dataArray[r].length; i++) {
         dataArray[r][i] = 0xff & buffer.buffer[i + offset];
       }
+      offset += dc;
       let rsPoly = new QRPolynomial([1], 0);
       for (let i = 0; i < ec; i++) {
         rsPoly = rsPoly.multiply(new QRPolynomial([1, QRMath.gexp(i)], 0));
@@ -725,7 +726,7 @@
       }
     }
 
-    const totalCodeCount = 0;
+    let totalCodeCount = 0;
     for (let i = 0; i < rsBlocks.length; i++) totalCodeCount += rsBlocks[i].totalCount;
     const result = new Array(totalCodeCount);
     let index = 0;

@@ -1,0 +1,27 @@
+# Android project files and build directories
+.gradle/
+.kotlin/
+.idea/
+app/
+build/
+gradle/
+output/
+verification/
+scripts/
+docs/
+.superpowers/
+
+# Build scripts and tooling
+*.iml
+*.bat
+*.kts
+gradlew
+gradlew.bat
+local.properties
+gradle.properties
+settings.gradle.kts
+build.gradle.kts
+README.md
+
+# Duplicate root APK (landing/assets/Choreemon.apk is the deployed source of truth)
+/Choreemon.apk
