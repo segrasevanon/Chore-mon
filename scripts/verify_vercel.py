@@ -81,3 +81,4 @@ print("[+] PASS: landing/app.js passed Node.js syntax check.")
 
 print("\n[*] ALL VERCEL DEPLOYMENT CHECKS PASSED!")
 sys.exit(0)
+
