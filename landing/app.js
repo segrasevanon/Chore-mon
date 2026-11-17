@@ -712,7 +712,7 @@
       for (let i = 0; i < dataArray[r].length; i++) {
         dataArray[r][i] = 0xff & buffer.buffer[i + offset];
       }
-      const rsPoly = new QRPolynomial([1], 0);
+      let rsPoly = new QRPolynomial([1], 0);
       for (let i = 0; i < ec; i++) {
         rsPoly = rsPoly.multiply(new QRPolynomial([1, QRMath.gexp(i)], 0));
       }
