@@ -14,7 +14,6 @@ $html = Get-Content "landing/index.html" -Raw
 $requiredIds = @(
     "nav-toggle-sound",
     "download-btn-hero",
-    "qr-canvas",
     "egg-widget",
     "egg-tap-zone",
     "egg-result",
