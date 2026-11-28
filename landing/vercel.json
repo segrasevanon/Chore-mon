@@ -1,6 +1,13 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/downloads/Choreemon.apk",
+      "destination": "https://github.com/segrasevanon/Chore-mon/raw/main/Choreemon.apk",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/downloads/Choreemon.apk",
