@@ -89,9 +89,12 @@ class ChoreRepository {
     }
 
     suspend fun findByHousehold(householdId: String, includeArchived: Boolean = false): List<Chore> = dbQuery {
-        val query = Chores.selectAll().where { Chores.householdId eq householdId }
-        val filtered = if (!includeArchived) query.where { Chores.archived eq false } else query
-        val choreRows = filtered.toList()
+        val query = if (!includeArchived) {
+            Chores.selectAll().where { (Chores.householdId eq householdId) and (Chores.archived eq false) }
+        } else {
+            Chores.selectAll().where { Chores.householdId eq householdId }
+        }
+        val choreRows = query.toList()
         if (choreRows.isEmpty()) return@dbQuery emptyList()
 
         val choreIds = choreRows.map { it[Chores.id] }

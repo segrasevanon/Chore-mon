@@ -93,6 +93,7 @@ fun Application.module() {
                 completionsRoutes(registry)
                 creaturesRoutes(registry)
                 leaderboardRoutes(registry)
+                societiesRoutes(registry)
                 photosRoutes(registry)
             }
         }

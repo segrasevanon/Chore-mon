@@ -27,6 +27,7 @@ class ServiceRegistry(
     val chores: ChoreRepository,
     val completions: CompletionRepository,
     val creatures: CreatureRepository,
+    val societies: SocietyRepository,
 ) {
     companion object {
         fun create(config: AppConfig): ServiceRegistry {
@@ -55,6 +56,7 @@ class ServiceRegistry(
                 chores        = ChoreRepository(),
                 completions   = CompletionRepository(),
                 creatures     = CreatureRepository(),
+                societies     = SocietyRepository(),
             )
         }
     }

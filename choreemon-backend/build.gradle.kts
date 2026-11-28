@@ -63,6 +63,7 @@ dependencies {
 
     // ── Testing ──────────────────────────────────────────────────────────────
     testImplementation("io.ktor:ktor-server-test-host-jvm:$ktor_version")
+    testImplementation("com.h2database:h2:2.3.232")
     testImplementation(kotlin("test"))
 }
 

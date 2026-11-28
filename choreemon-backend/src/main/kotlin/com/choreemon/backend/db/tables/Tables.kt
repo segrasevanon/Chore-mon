@@ -2,8 +2,18 @@ package com.choreemon.backend.db.tables
 
 import org.jetbrains.exposed.sql.Table
 
+object Societies : Table("Societies") {
+    val id        = varchar("id", 36)
+    val name      = varchar("name", 100)
+    val code      = varchar("code", 12).uniqueIndex()
+    val city      = varchar("city", 100).default("")
+    val createdAt = varchar("created_at", 50)
+    override val primaryKey = PrimaryKey(id)
+}
+
 object Households : Table("Households") {
     val id         = varchar("id", 36)
+    val societyId  = varchar("society_id", 36).references(Societies.id).nullable()
     val name       = varchar("name", 100)
     val inviteCode = varchar("invite_code", 12).uniqueIndex()
     val pinSalt    = varchar("pin_salt", 32)

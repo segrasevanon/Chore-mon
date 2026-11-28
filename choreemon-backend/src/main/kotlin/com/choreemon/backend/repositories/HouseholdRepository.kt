@@ -17,7 +17,8 @@ data class HouseholdRecord(
     val pinSalt: String,
     val pinHash: String,
     val weekStart: String,
-    val createdAt: String
+    val createdAt: String,
+    val societyId: String? = null
 )
 
 class HouseholdRepository {
@@ -28,14 +29,16 @@ class HouseholdRepository {
         pinSalt = row[Households.pinSalt],
         pinHash = row[Households.pinHash],
         weekStart = row[Households.weekStart],
-        createdAt = row[Households.createdAt]
+        createdAt = row[Households.createdAt],
+        societyId = row[Households.societyId]
     )
 
     suspend fun createHousehold(
         name: String,
         pinSalt: String = "",
         pinHash: String = "",
-        weekStart: String = ""
+        weekStart: String = "",
+        societyId: String? = null
     ): HouseholdRecord = dbQuery {
         val id = UUID.randomUUID().toString()
         val inviteCode = generateInviteCode()
@@ -49,9 +52,10 @@ class HouseholdRepository {
             it[Households.pinHash] = pinHash
             it[Households.weekStart] = weekStart
             it[Households.createdAt] = now
+            it[Households.societyId] = societyId
         }
 
-        HouseholdRecord(id, name, inviteCode, pinSalt, pinHash, weekStart, now)
+        HouseholdRecord(id, name, inviteCode, pinSalt, pinHash, weekStart, now, societyId)
     }
 
     suspend fun findById(id: String): HouseholdRecord? = dbQuery {
@@ -66,6 +70,18 @@ class HouseholdRepository {
             .where { Households.inviteCode eq code.uppercase() }
             .map(::toHousehold)
             .singleOrNull()
+    }
+
+    suspend fun updateSociety(id: String, societyId: String?) = dbQuery {
+        Households.update({ Households.id eq id }) {
+            it[Households.societyId] = societyId
+        }
+    }
+
+    suspend fun findBySociety(societyId: String): List<HouseholdRecord> = dbQuery {
+        Households.selectAll()
+            .where { Households.societyId eq societyId }
+            .map(::toHousehold)
     }
 
     suspend fun updateWeekStart(id: String, weekStart: String) = dbQuery {

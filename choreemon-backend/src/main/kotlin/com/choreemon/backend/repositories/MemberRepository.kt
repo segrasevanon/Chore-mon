@@ -136,9 +136,11 @@ class MemberRepository {
     }
 
     suspend fun getDeviceTokensForHousehold(householdId: String, excludeMemberId: String? = null): List<String> = dbQuery {
-        val memberQuery = Members.selectAll().where { Members.householdId eq householdId }
-        val memberIds = (if (excludeMemberId != null) memberQuery.where { Members.id neq excludeMemberId } else memberQuery)
-            .map { it[Members.id] }
+        val memberIds = if (excludeMemberId != null) {
+            Members.selectAll().where { (Members.householdId eq householdId) and (Members.id neq excludeMemberId) }
+        } else {
+            Members.selectAll().where { Members.householdId eq householdId }
+        }.map { it[Members.id] }
 
         if (memberIds.isEmpty()) return@dbQuery emptyList()
 
